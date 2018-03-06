@@ -1,0 +1,18 @@
+11x 	- databáza agentov 11x 
+	- entity: agent, misia
+	- agent	- id (Long)
+		- full name (String)
+		- code name (String - 11_)
+		- equipment (pole enumov)
+	- misia - id (Long)
+		- target (String)
+		- necessary eq (pole enumov)
+		- deadline (date)
+-local date v kontrakte
+- agent moze byt priradeny len na missiu, na ktoru ma aspon minimalne vybavenie
+- kontrakt ma start time, end time je urceny urovnou vybavenia 
+  (cim lepsie vybavenie tym menej casu na misiu), najneskor deadline
+- agent missia by malo byt 1:1, nemoze robit viac missi naraz a vzdy len jeden
+  agent pre max utajenie
+- uzivatel databaze - M - pridava agentov, misie, moze vyslat
+  agenta na misiu, prehladavat, (create, update, delete), schvaluje ukoncenie misie
