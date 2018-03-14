@@ -6,11 +6,9 @@ import java.util.List;
  * @author Slavomir Katkin
  */
 public class AgentManagerImpl implements AgentManager {
-    private long idCounter;
-
+    private long idCounter = 0;
 
     public AgentManagerImpl() {
-        this.idCounter = 0;
     }
 
     @Override

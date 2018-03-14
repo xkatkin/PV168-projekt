@@ -4,10 +4,9 @@ package cz.muni.fi.contracts;
  * @author Slavomir Katkin
  */
 public class ContractManagerImpl implements ContractManager{
-    private long idCounter;
 
     public ContractManagerImpl() {
-        this.idCounter = 0;
+
     }
 
     @Override
