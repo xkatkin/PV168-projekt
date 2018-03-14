@@ -8,6 +8,7 @@ import java.util.List;
 public class AgentManagerImpl implements AgentManager {
     private long idCounter;
 
+
     public AgentManagerImpl() {
         this.idCounter = 0;
     }
@@ -36,4 +37,6 @@ public class AgentManagerImpl implements AgentManager {
     public List<Agent> findAllAgents() {
         return null;
     }
+
+
 }

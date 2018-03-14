@@ -16,8 +16,15 @@ public class Agent {
         this.equipment = equipment;
     }
 
+    public Agent() {
+    }
+
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getFullName() {
@@ -42,5 +49,24 @@ public class Agent {
 
     public void setEquipment(Equipment equipment) {
         this.equipment = equipment;
+    }
+
+    //TODO:
+    //tostring
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Agent agent = (Agent) o;
+
+        return id == agent.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (id ^ (id >>> 32));
     }
 }
