@@ -14,6 +14,7 @@ public class Agent {
         this.fullName = fullName;
         this.secretName = secretName;
         this.equipment = equipment;
+
     }
 
     public Agent() {
@@ -51,9 +52,16 @@ public class Agent {
         this.equipment = equipment;
     }
 
-    //TODO:
-    //tostring
-
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Agent{");
+        sb.append("id=").append(id);
+        sb.append(", fullName='").append(fullName).append('\'');
+        sb.append(", secretName='").append(secretName).append('\'');
+        sb.append(", equipment=").append(equipment);
+        sb.append('}');
+        return sb.toString();
+    }
 
     @Override
     public boolean equals(Object o) {

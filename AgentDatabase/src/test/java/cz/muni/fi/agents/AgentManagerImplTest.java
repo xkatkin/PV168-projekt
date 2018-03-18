@@ -5,7 +5,7 @@ import org.junit.rules.ExpectedException;
 import javax.sql.DataSource;
 
 import static org.junit.Assert.*;
-
+//TODO UPDATE BODY
 /**
  * @author Slavomir Katkin
  */
@@ -15,7 +15,6 @@ public class AgentManagerImplTest {
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
-
 
     @Before
     public void setUp() throws Exception {
@@ -51,7 +50,7 @@ public class AgentManagerImplTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void createAgentWithoutNoName () throws Exception {
+    public void createAgentWithoutName () throws Exception {
         Agent agent = new AgentBuilder()
                 .fullName(null)
                 .secretName("001")

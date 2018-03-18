@@ -1,6 +1,7 @@
 package cz.muni.fi.contracts;
 
 import cz.muni.fi.agents.Agent;
+import cz.muni.fi.missions.Mission;
 
 import java.time.LocalDate;
 import java.time.Month;
