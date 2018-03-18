@@ -2,6 +2,9 @@ package cz.muni.fi.missions;
 
 import java.util.List;
 
+/**
+ * @author Samuel Gorta
+ */
 public class MissionManagerImpl {
     private long idCounter = 0;
 
@@ -13,7 +16,7 @@ public class MissionManagerImpl {
         throw new UnsupportedOperationException("no implementation");
     }
 
-    public boolean deleteMission(long MissionId){
+    public boolean deleteMission(long missionId){
         throw new UnsupportedOperationException("no implementation");
     }
 

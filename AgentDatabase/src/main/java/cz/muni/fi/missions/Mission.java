@@ -4,8 +4,10 @@ import cz.muni.fi.agents.Equipment;
 
 import java.time.LocalDate;
 
+/**
+ * @author Samuel Gorta
+ */
 public class Mission {
-
     private long id;
     private String target;
     private Equipment necesarryEquipment;
@@ -27,6 +29,10 @@ public class Mission {
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getTarget() {
