@@ -3,6 +3,7 @@ package cz.muni.fi.missions;
 import cz.muni.fi.agents.Equipment;
 
 import java.time.LocalDate;
+import java.time.Month;
 
 /**
  * @author Samuel Gorta
@@ -39,6 +40,11 @@ public class MissionBuilder {
 
     public MissionBuilder deadline(LocalDate deadline){
         this.deadline = deadline;
+        return this;
+    }
+
+    public MissionBuilder deadline(int year, Month month, int day) {
+        this.deadline = LocalDate.of(year, month, day);
         return this;
     }
 }

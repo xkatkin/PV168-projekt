@@ -29,19 +29,19 @@ public class MissionManagerImplTest {
         missionManager = new MissionManagerImpl();
     }
 
-    private MissionBuilder testMission1(){
+    private MissionBuilder testMission1Builder(){
         return new MissionBuilder().target("Buckingham Palace")
                                    .necesaryEquipmnt(Equipment.BADASSCAR)
                                    .deadline(LocalDate.of(2018, Month.JUNE, 14));
     }
 
-    private MissionBuilder testMission2(){
+    private MissionBuilder testMission2Builder(){
         return new MissionBuilder().target("Bratislava's UFO")
                                    .necesaryEquipmnt(Equipment.MOJITO)
                                    .deadline(LocalDate.of(2027, Month.APRIL, 1));
     }
 
-    private MissionBuilder testMission3(){
+    private MissionBuilder testMission3Builder(){
         return new MissionBuilder().target("FI at MUNI")
                                    .necesaryEquipmnt(Equipment.CHARMINGCOMPANION)
                                    .deadline(LocalDate.of(2018, Month.MARCH, 24));
@@ -84,7 +84,7 @@ public class MissionManagerImplTest {
 
     @Test
     public void simplyCreateMissions ()  {
-        Mission mission1 = testMission1().build();
+        Mission mission1 = testMission1Builder().build();
         missionManager.createMission(mission1);
         assertFalse(missionManager.findAllMissions().isEmpty());
         assertTrue(missionManager.findAllMissions().contains(mission1));
@@ -92,9 +92,9 @@ public class MissionManagerImplTest {
 
     @Test
     public void createMissions ()  {
-        Mission mission1 = testMission1().build();
-        Mission mission2 = testMission2().build();
-        Mission mission3 = testMission3().build();
+        Mission mission1 = testMission1Builder().build();
+        Mission mission2 = testMission2Builder().build();
+        Mission mission3 = testMission3Builder().build();
 
         missionManager.createMission(mission1);
         missionManager.createMission(mission2);
@@ -108,22 +108,22 @@ public class MissionManagerImplTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void createMissionsWithDuplicateId () throws Exception {
-        Mission mission1 = testMission1().build();
+        Mission mission1 = testMission1Builder().build();
         missionManager.createMission(mission1);
-        Mission mission2 = testMission2().id(mission1.getId()).build();
+        Mission mission2 = testMission2Builder().id(mission1.getId()).build();
         missionManager.createMission(mission2);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void createDuplicatedMissions () throws Exception {
-        Mission mission1 = testMission1().build();
+        Mission mission1 = testMission1Builder().build();
         missionManager.createMission(mission1);
         missionManager.createMission(mission1);
     }
 
     @Test
     public void simplyDeleteMission ()  {
-        Mission mission1 = testMission1().build();
+        Mission mission1 = testMission1Builder().build();
         missionManager.createMission(mission1);
         assertFalse(missionManager.findAllMissions().isEmpty());
         assertTrue(missionManager.findAllMissions().contains(mission1));
@@ -135,9 +135,9 @@ public class MissionManagerImplTest {
 
     @Test
     public void complexDeleteMission ()  {
-        Mission mission1 = testMission1().build();
-        Mission mission2 = testMission2().build();
-        Mission mission3 = testMission3().build();
+        Mission mission1 = testMission1Builder().build();
+        Mission mission2 = testMission2Builder().build();
+        Mission mission3 = testMission3Builder().build();
 
         missionManager.createMission(mission1);
         missionManager.createMission(mission2);
@@ -161,9 +161,9 @@ public class MissionManagerImplTest {
 
     @Test
     public void deleteAndAddMission ()  {
-        Mission mission1 = testMission1().build();
-        Mission mission2 = testMission2().build();
-        Mission mission3 = testMission3().build();
+        Mission mission1 = testMission1Builder().build();
+        Mission mission2 = testMission2Builder().build();
+        Mission mission3 = testMission3Builder().build();
 
         missionManager.createMission(mission1);
         missionManager.createMission(mission2);
@@ -183,9 +183,9 @@ public class MissionManagerImplTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void deleteInvalidIdMission ()  {
-        Mission mission1 = testMission1().build();
-        Mission mission2 = testMission2().build();
-        Mission mission3 = testMission3().build();
+        Mission mission1 = testMission1Builder().build();
+        Mission mission2 = testMission2Builder().build();
+        Mission mission3 = testMission3Builder().build();
 
         missionManager.createMission(mission1);
         missionManager.createMission(mission2);
@@ -194,9 +194,9 @@ public class MissionManagerImplTest {
 
     @Test
     public void simplyFindAllMissions ()  {
-        Mission mission1 = testMission1().build();
-        Mission mission2 = testMission2().build();
-        Mission mission3 = testMission3().build();
+        Mission mission1 = testMission1Builder().build();
+        Mission mission2 = testMission2Builder().build();
+        Mission mission3 = testMission3Builder().build();
 
         assertTrue(missionManager.findAllMissions().isEmpty());
 
@@ -212,9 +212,7 @@ public class MissionManagerImplTest {
 
     @Test
     public void simplyFindMissionById ()  {
-        Mission mission1 = testMission1().build();
-        Mission mission2 = testMission2().build();
-        Mission mission3 = testMission3().build();
+        Mission mission1 = testMission1Builder().build();
 
         missionManager.createMission(mission1);
         assertEquals(missionManager.findMissionByid(mission1.getId()), mission1);
@@ -222,9 +220,9 @@ public class MissionManagerImplTest {
 
     @Test
     public void findMissionByIdWithMoreMissions ()  {
-        Mission mission1 = testMission1().build();
-        Mission mission2 = testMission2().build();
-        Mission mission3 = testMission3().build();
+        Mission mission1 = testMission1Builder().build();
+        Mission mission2 = testMission2Builder().build();
+        Mission mission3 = testMission3Builder().build();
 
         missionManager.createMission(mission1);
         missionManager.createMission(mission2);
@@ -236,8 +234,8 @@ public class MissionManagerImplTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void findMissionByInvalidId ()  {
-        Mission mission1 = testMission1().build();
-        Mission mission2 = testMission2().build();
+        Mission mission1 = testMission1Builder().build();
+        Mission mission2 = testMission2Builder().build();
 
         missionManager.createMission(mission1);
         assertEquals(missionManager.findMissionByid(mission2.getId()), mission1);
@@ -245,8 +243,8 @@ public class MissionManagerImplTest {
 
     @Test
     public void simplyUpdateMission() throws Exception {
-        Mission mission1 = testMission1().build();
-        Mission mission2 = testMission2().build();
+        Mission mission1 = testMission1Builder().build();
+        Mission mission2 = testMission2Builder().build();
 
         missionManager.createMission(mission1);
         missionManager.createMission(mission2);
@@ -260,8 +258,8 @@ public class MissionManagerImplTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void updateNonExistingMission() throws Exception {
-        Mission mission1 = testMission1().build();
-        Mission mission2 = testMission2().build();
+        Mission mission1 = testMission1Builder().build();
+        Mission mission2 = testMission2Builder().build();
 
         missionManager.createMission(mission1);
         missionManager.updateMission(mission2);
