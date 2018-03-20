@@ -1,6 +1,7 @@
 package cz.muni.fi.contracts;
 
 import javax.naming.OperationNotSupportedException;
+import java.util.List;
 
 /**
  * @author Slavomir Katkin
@@ -27,7 +28,7 @@ public class ContractManagerImpl implements ContractManager{
     }
 
     @Override
-    public Contract findAllContracts(Contract contract) {
+    public List<Contract> findAllContracts() {
         throw new UnsupportedOperationException("no implementation");
     }
 }

@@ -12,6 +12,7 @@ import org.junit.rules.ExpectedException;
 import javax.sql.DataSource;
 
 import java.time.*;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -24,6 +25,9 @@ public class ContractManagerImplTest {
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
+
+    private final static ZonedDateTime NOW
+            = LocalDateTime.of(2018, Month.MARCH, 15, 14, 00).atZone(ZoneId.of("UTC"));
 
     @Before
     public void setUp() throws Exception {
@@ -74,7 +78,7 @@ public class ContractManagerImplTest {
         return new ContractBuilder()
                 .agent(testAgent2Builder().build())
                 .mission(testMission2Builder().build())
-                .endDate(LocalDate.of(2018, Month.MARCH, 19))
+                .endDate(LocalDate.of(2019, Month.MARCH, 19))
                 .startDate(LocalDate.of(2018, Month.SEPTEMBER, 2));
     }
 
@@ -82,8 +86,8 @@ public class ContractManagerImplTest {
         return new ContractBuilder()
                 .agent(testAgent1Builder().build())
                 .mission(testMission3Builder().build())
-                .endDate(LocalDate.of(2021, Month.DECEMBER, 23))
-                .startDate(LocalDate.of(2022, Month.JANUARY, 10));
+                .endDate(LocalDate.of(2022, Month.DECEMBER, 23))
+                .startDate(LocalDate.of(2021, Month.JANUARY, 10));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -108,18 +112,43 @@ public class ContractManagerImplTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void createContractWithBusyAgent() throws Exception {
+        Contract contract1 = testContract1().build();
+        contractManager.createContract(contract1);
+
+        Contract contract2 = testContract1()
+                .startDate(LocalDate.of(2018, Month.MARCH, 15))
+                .endDate(LocalDate.of(2018, Month.MARCH, 24))
+                .build();
+        contractManager.createContract(contract2);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void createContractWithExpiredMission() throws Exception {
+        Contract contract = new ContractBuilder()
+                .agent(testAgent2Builder().build())
+                .mission(testMission2Builder().build())
+                .startDate(LocalDate.of(1990, Month.JANUARY, 19))
+                .endDate(LocalDate.of(1990, Month.FEBRUARY, 2))
+                .build();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void createContractWithoutDeadline() throws Exception {
+        Contract contract = new ContractBuilder()
+                .agent(testAgent1Builder().build())
+                .mission(testMission1Builder().build())
+                .startDate(LocalDate.of(2018, Month.MARCH, 19))
+                .build();
+        contractManager.createContract(contract);
+
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void createContractWithInvalidDeadline() throws Exception {
+        Contract contract = testContract1()
+                .startDate(LocalDate.of(2018, Month.MARCH, 19))
+                .endDate(LocalDate.of(2018, Month.MARCH, 18))
+                .build();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -128,10 +157,20 @@ public class ContractManagerImplTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void createContractWithContractedMission() throws Exception {
+        Contract contract1 = testContract1().build();
+        Contract contract2 = testContract1().
+                agent(testAgent2Builder().build())
+                .build();
+        contractManager.createContract(contract1);
+        contractManager.createContract(contract2);
     }
 
     @Test
     public void simpleCreateContract() throws Exception {
+        Contract contract1 = testContract1().build();
+        contractManager.createContract(contract1);
+        assertFalse(contractManager.findAllContracts().isEmpty());
+        assertTrue(contractManager.findAllContracts().contains(contract1));
     }
 
     @Test
@@ -148,10 +187,16 @@ public class ContractManagerImplTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void updateNonExistingContract() throws Exception {
+        Contract contract = testContract3().build();
+        contractManager.updateContract(contract);
     }
 
     @Test
     public void simplyDeleteContract() throws Exception {
+        Contract contract = testContract3().build();
+        contractManager.createContract(contract);
+        contractManager.deleteContract(contract);
+        assertTrue(contractManager.findAllContracts().size() == 0);
     }
 
     @Test
@@ -160,13 +205,29 @@ public class ContractManagerImplTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void deleteNonExistingContract() throws Exception {
+        Contract contract = testContract3().build();
+        contractManager.deleteContract(contract);
     }
 
     @Test
     public void findAllContracts() throws Exception {
+        Contract contract1 = testContract1().build();
+        Contract contract2 = testContract2().build();
+        Contract contract3 = testContract3().build();
+        contractManager.createContract(contract1);
+        contractManager.createContract(contract2);
+        contractManager.createContract(contract3);
+
+        List<Contract> contractList = contractManager.findAllContracts();
+        assertTrue(contractList.size() == 3);
+        assertTrue(contractList.contains(contract1));
+        assertTrue(contractList.contains(contract2));
+        assertTrue(contractList.contains(contract3));
+
     }
 
     @Test
     public void findAllContractsInEmptyDB() throws Exception {
+        assertTrue(contractManager.findAllContracts().size() == 0);
     }
 }

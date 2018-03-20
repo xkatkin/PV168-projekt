@@ -1,6 +1,5 @@
 package cz.muni.fi.agents;
 
-import javax.naming.OperationNotSupportedException;
 import java.util.List;
 
 /**

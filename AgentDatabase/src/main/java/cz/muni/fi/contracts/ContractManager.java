@@ -1,5 +1,5 @@
 package cz.muni.fi.contracts;
-
+import java.util.List;
 /**
  * @author Slavomir Katkin
  */
@@ -27,9 +27,8 @@ public interface ContractManager {
 
     /**
      *
-     * @param contract
      * @return
      */
-    Contract findAllContracts(Contract contract);
+    List<Contract> findAllContracts();
 
 }
