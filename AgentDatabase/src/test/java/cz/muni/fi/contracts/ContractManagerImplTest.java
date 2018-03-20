@@ -11,8 +11,7 @@ import org.junit.rules.ExpectedException;
 
 import javax.sql.DataSource;
 
-import java.time.LocalDate;
-import java.time.Month;
+import java.time.*;
 
 import static org.junit.Assert.*;
 
@@ -89,10 +88,22 @@ public class ContractManagerImplTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void createContractWithoutAgent() throws Exception {
+        Contract contract = new ContractBuilder()
+                .mission(testMission1Builder().build())
+                .startDate(LocalDate.of(2018, Month.MARCH, 19))
+                .endDate(LocalDate.of(2018, Month.SEPTEMBER, 2))
+                .build();
+        contractManager.createContract(contract);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void createContractWithoutMission() throws Exception {
+        Contract contract = new ContractBuilder()
+                .agent(testAgent1Builder().build())
+                .startDate(LocalDate.of(2018, Month.MARCH, 19))
+                .endDate(LocalDate.of(2018, Month.SEPTEMBER, 2))
+                .build();
+        contractManager.createContract(contract);
     }
 
     @Test(expected = IllegalArgumentException.class)

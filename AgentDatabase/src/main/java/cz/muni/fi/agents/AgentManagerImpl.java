@@ -1,5 +1,6 @@
 package cz.muni.fi.agents;
 
+import javax.naming.OperationNotSupportedException;
 import java.util.List;
 
 /**
@@ -13,27 +14,27 @@ public class AgentManagerImpl implements AgentManager {
 
     @Override
     public Agent createAgent(Agent agent) {
-        return null;
+        throw new UnsupportedOperationException("no implementation");
     }
 
     @Override
     public Agent updateAgent(Agent agent) {
-        return null;
+        throw new UnsupportedOperationException("no implementation");
     }
 
     @Override
     public Boolean deleteAgent(long agentId) {
-        return null;
+        throw new UnsupportedOperationException("no implementation");
     }
 
     @Override
     public Agent findAgentById(long agentId) {
-        return null;
+        throw new UnsupportedOperationException("no implementation");
     }
 
     @Override
     public List<Agent> findAllAgents() {
-        return null;
+        throw new UnsupportedOperationException("no implementation");
     }
 
 
