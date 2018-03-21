@@ -6,7 +6,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import javax.sql.DataSource;
 import java.time.LocalDate;
 import java.time.Month;
 
@@ -19,7 +18,6 @@ import static junit.framework.TestCase.assertTrue;
  */
 public class MissionManagerImplTest {
     private MissionManagerImpl missionManager;
-    private DataSource ds;
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
