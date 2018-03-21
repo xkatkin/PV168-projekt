@@ -7,27 +7,27 @@ import java.util.List;
  */
 public class AgentManagerImpl implements AgentManager {
 
-    @Override
+
     public void createAgent(Agent agent) {
         throw new UnsupportedOperationException("no implementation");
     }
 
-    @Override
+
     public void updateAgent(Agent agent) {
         throw new UnsupportedOperationException("no implementation");
     }
 
-    @Override
-    public Boolean deleteAgent(long agentId) {
+
+    public boolean deleteAgent(long agentId) {
         throw new UnsupportedOperationException("no implementation");
     }
 
-    @Override
+
     public Agent findAgentById(long agentId) {
         throw new UnsupportedOperationException("no implementation");
     }
 
-    @Override
+
     public List<Agent> findAllAgents() {
         throw new UnsupportedOperationException("no implementation");
     }
