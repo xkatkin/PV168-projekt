@@ -29,8 +29,10 @@ public class MissionManagerImpl implements MissionManager{
         if (mission == null){
             throw new IllegalArgumentException("Argument mission is null.");
         }
-        if (mission.getTarget() == null || mission.getDeadline() == null){
-            throw new IllegalArgumentException("Mission with illegal atributes.");
+        if (mission.getTarget() == null ||
+                mission.getDeadline() == null ||
+                mission.getNecesarryEquipment() == null){
+            throw new IllegalArgumentException("Mission with illegal attributes.");
         }
 
         SimpleJdbcInsert insertMission = new SimpleJdbcInsert(jdbc)
@@ -62,17 +64,17 @@ public class MissionManagerImpl implements MissionManager{
 
     @Override
     public boolean deleteMission(long missionId){
-        return jdbc.update("DELETE FROM mission WHERE id=?", missionId) == 1;
+        return jdbc.update("DELETE FROM missions WHERE id=?", missionId) == 1;
     }
 
     @Override
     public Mission findMissionByid(long missionId){
-        return jdbc.queryForObject("SELECT * FROM mission WHERE id=?", missionMapper, missionId);
+        return jdbc.queryForObject("SELECT * FROM missions WHERE id=?", missionMapper, missionId);
     }
 
     @Override
     public List<Mission> findAllMissions(){
-        return jdbc.query("SELECT * FROM mission", missionMapper);
+        return jdbc.query("SELECT * FROM missions", missionMapper);
     }
 
 }
