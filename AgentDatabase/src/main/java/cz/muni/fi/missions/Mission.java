@@ -4,49 +4,54 @@ import cz.muni.fi.agents.Equipment;
 
 import java.time.LocalDate;
 
+/**
+ * @author Samuel Gorta
+ */
 public class Mission {
-
     private long id;
     private String target;
-    private Equipment necesarryEquipment;
+    private Equipment necessaryEquipment;
     private LocalDate deadline;
 
-    public Mission() {
-        this.id = idCounter++;
+    Mission() {
     }
 
-    public Mission(String target, Equipment necesarryEquipment, LocalDate deadline) {
-        this.id = idCounter++;
+    Mission(long id, String target, Equipment necesarryEquipment, LocalDate deadline) {
+        this.id = id;
         this.target = target;
-        this.necesarryEquipment = necesarryEquipment;
+        this.necessaryEquipment = necesarryEquipment;
         this.deadline = deadline;
     }
 
-    public Equipment getNecesarryEquipment() {
-        return necesarryEquipment;
+    Equipment getNecesarryEquipment() {
+        return necessaryEquipment;
     }
 
     public long getId() {
         return id;
     }
 
-    public String getTarget() {
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    String getTarget() {
         return target;
     }
 
-    public void setTarget(String target) {
+    void setTarget(String target) {
         this.target = target;
     }
 
-    public void setNecesarryEquipment(Equipment necesarryEquipment) {
-        this.necesarryEquipment = necesarryEquipment;
+    void setNecesarryEquipment(Equipment necesarryEquipment) {
+        this.necessaryEquipment = necesarryEquipment;
     }
 
-    public LocalDate getDeadline() {
+    LocalDate getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(LocalDate deadline) {
+    void setDeadline(LocalDate deadline) {
         this.deadline = deadline;
     }
 
@@ -70,7 +75,7 @@ public class Mission {
         return "Mission{" +
                 "id=" + id +
                 ", target='" + target + '\'' +
-                ", necesarryEquipment=" + necesarryEquipment +
+                ", necesarryEquipment=" + necessaryEquipment +
                 ", deadline=" + deadline +
                 '}';
     }
