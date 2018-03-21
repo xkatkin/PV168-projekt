@@ -10,7 +10,7 @@ import java.time.LocalDate;
 public class Mission {
     private long id;
     private String target;
-    private Equipment necesarryEquipment;
+    private Equipment necessaryEquipment;
     private LocalDate deadline;
 
     public Mission() {
@@ -19,12 +19,12 @@ public class Mission {
     public Mission(long id, String target, Equipment necesarryEquipment, LocalDate deadline) {
         this.id = id;
         this.target = target;
-        this.necesarryEquipment = necesarryEquipment;
+        this.necessaryEquipment = necesarryEquipment;
         this.deadline = deadline;
     }
 
     public Equipment getNecesarryEquipment() {
-        return necesarryEquipment;
+        return necessaryEquipment;
     }
 
     public long getId() {
@@ -44,7 +44,7 @@ public class Mission {
     }
 
     public void setNecesarryEquipment(Equipment necesarryEquipment) {
-        this.necesarryEquipment = necesarryEquipment;
+        this.necessaryEquipment = necesarryEquipment;
     }
 
     public LocalDate getDeadline() {
@@ -75,7 +75,7 @@ public class Mission {
         return "Mission{" +
                 "id=" + id +
                 ", target='" + target + '\'' +
-                ", necesarryEquipment=" + necesarryEquipment +
+                ", necesarryEquipment=" + necessaryEquipment +
                 ", deadline=" + deadline +
                 '}';
     }
