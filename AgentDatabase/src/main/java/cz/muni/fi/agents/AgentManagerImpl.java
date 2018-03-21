@@ -6,18 +6,14 @@ import java.util.List;
  * @author Slavomir Katkin
  */
 public class AgentManagerImpl implements AgentManager {
-    private long idCounter = 0;
-
-    public AgentManagerImpl() {
-    }
 
     @Override
-    public Agent createAgent(Agent agent) {
+    public void createAgent(Agent agent) {
         throw new UnsupportedOperationException("no implementation");
     }
 
     @Override
-    public Agent updateAgent(Agent agent) {
+    public void updateAgent(Agent agent) {
         throw new UnsupportedOperationException("no implementation");
     }
 

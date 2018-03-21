@@ -8,22 +8,18 @@ import java.util.List;
  */
 public class ContractManagerImpl implements ContractManager{
 
-    public ContractManagerImpl() {
-
-    }
-
     @Override
-    public Contract createContract(Contract contract) {
+    public void createContract(Contract contract) {
         throw new UnsupportedOperationException("no implementation");
     }
 
     @Override
-    public Contract updateContract(Contract contract) {
+    public void updateContract(Contract contract) {
         throw new UnsupportedOperationException("no implementation");
     }
 
     @Override
-    public Contract deleteContract(Contract contract) {
+    public boolean deleteContract(Contract contract) {
         throw new UnsupportedOperationException("no implementation");
     }
 
