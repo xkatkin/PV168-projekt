@@ -29,14 +29,14 @@ public interface AgentManager {
      * @param agentId - ID primary key) of agent in the database
      * @return true if agent was deleted, false otherwise
      */
-    boolean deleteAgent(long agentId);
+    boolean deleteAgent(Long agentId);
 
     /**
      * Returns agent with given ID
      * @param agentId - ID (primary key) of agent in the database to be found
      * @return agent with given ID or null if not found
      */
-    Agent findAgentById(long agentId);
+    Agent findAgentById(Long agentId);
 
     /**
      * Returns all agents within database
