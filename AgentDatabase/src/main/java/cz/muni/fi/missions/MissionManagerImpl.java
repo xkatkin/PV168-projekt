@@ -5,14 +5,13 @@ import java.util.List;
 /**
  * @author Samuel Gorta
  */
-public class MissionManagerImpl {
-    private long idCounter = 0;
+public class MissionManagerImpl implements MissionManager{
 
-    public Mission createMission(Mission mission){
+    public void createMission(Mission mission){
         throw new UnsupportedOperationException("no implementation");
     }
 
-    public Mission updateMission(Mission mission){
+    public void updateMission(Mission mission){
         throw new UnsupportedOperationException("no implementation");
     }
 
@@ -24,7 +23,7 @@ public class MissionManagerImpl {
         throw new UnsupportedOperationException("no implementation");
     }
 
-    List<Mission> findAllMissions(){
+    public List<Mission> findAllMissions(){
         throw new UnsupportedOperationException("no implementation");
     }
 

@@ -9,37 +9,38 @@ import java.util.List;
  * @author Slavomir Katkin
  */
 public interface AgentManager {
-    /**
-     *
-     * @param agent
-     * @return
-     */
-    Agent createAgent(Agent agent);
 
     /**
-     *
-     * @param agent
-     * @return
+     * Creates new agent into database, ID is automatically generated and assigned as attribute
+     * @param agent - agent to be created
+     * @throws IllegalArgumentException - if agent or any of his parameters are null; agent already has id
      */
-    Agent updateAgent(Agent agent);
+    void createAgent(Agent agent) throws IllegalArgumentException;
 
     /**
-     *
-     * @param agentId
-     * @return
+     * Updates agent in the database
+     * @param agent - updated agent to be stored in database
+     * @throws IllegalArgumentException - if agent or any of his parameteres are null; agent is not in database
      */
-    Boolean deleteAgent(long agentId);
+    void updateAgent(Agent agent) throws IllegalArgumentException;
 
     /**
-     *
-     * @param agentId
-     * @return
+     * Deletes agent from the database
+     * @param agentId - ID primary key) of agent in the database
+     * @return true if agent was deleted, false otherwise
+     */
+    boolean deleteAgent(long agentId);
+
+    /**
+     * Returns agent with given ID
+     * @param agentId - ID (primary key) of agent in the database to be found
+     * @return agent with given ID or null if not found
      */
     Agent findAgentById(long agentId);
 
     /**
-     *
-     * @return
+     * Returns all agents within database
+     * @return list of all agents in the database
      */
     List<Agent> findAllAgents();
 

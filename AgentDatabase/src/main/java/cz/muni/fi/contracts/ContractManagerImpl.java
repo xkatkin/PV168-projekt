@@ -1,31 +1,30 @@
 package cz.muni.fi.contracts;
 
+import javax.naming.OperationNotSupportedException;
+import java.util.List;
+
 /**
  * @author Slavomir Katkin
  */
 public class ContractManagerImpl implements ContractManager{
 
-    public ContractManagerImpl() {
-
+    @Override
+    public void createContract(Contract contract) {
+        throw new UnsupportedOperationException("no implementation");
     }
 
     @Override
-    public Contract createContract(Contract contract) {
-        return null;
+    public void updateContract(Contract contract) {
+        throw new UnsupportedOperationException("no implementation");
     }
 
     @Override
-    public Contract updateContract(Contract contract) {
-        return null;
+    public boolean deleteContract(Contract contract) {
+        throw new UnsupportedOperationException("no implementation");
     }
 
     @Override
-    public Contract deleteContract(Contract contract) {
-        return null;
-    }
-
-    @Override
-    public Contract findAllContracts(Contract contract) {
-        return null;
+    public List<Contract> findAllContracts() {
+        throw new UnsupportedOperationException("no implementation");
     }
 }

@@ -10,16 +10,14 @@ public interface MissionManager {
     /**
      * Function adds mission into database of missions.
      * @param mission, which will be add to database
-     * @return added mission
      */
-    Mission createMission(Mission mission);
+    void createMission(Mission mission);
 
     /**
      * Function updates mission by replacing the old one with new (by Id).
      * @param mission updated mission
-     * @return updated mission
      */
-    Mission updateMission(Mission mission);
+    void updateMission(Mission mission);
 
     /**
      * Function delete mission from database.

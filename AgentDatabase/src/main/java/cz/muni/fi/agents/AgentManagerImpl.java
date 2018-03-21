@@ -6,34 +6,30 @@ import java.util.List;
  * @author Slavomir Katkin
  */
 public class AgentManagerImpl implements AgentManager {
-    private long idCounter = 0;
 
-    public AgentManagerImpl() {
+    @Override
+    public void createAgent(Agent agent) {
+        throw new UnsupportedOperationException("no implementation");
     }
 
     @Override
-    public Agent createAgent(Agent agent) {
-        return null;
-    }
-
-    @Override
-    public Agent updateAgent(Agent agent) {
-        return null;
+    public void updateAgent(Agent agent) {
+        throw new UnsupportedOperationException("no implementation");
     }
 
     @Override
     public Boolean deleteAgent(long agentId) {
-        return null;
+        throw new UnsupportedOperationException("no implementation");
     }
 
     @Override
     public Agent findAgentById(long agentId) {
-        return null;
+        throw new UnsupportedOperationException("no implementation");
     }
 
     @Override
     public List<Agent> findAllAgents() {
-        return null;
+        throw new UnsupportedOperationException("no implementation");
     }
 
 

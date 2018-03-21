@@ -2,16 +2,13 @@ package cz.muni.fi.agents;
 
 import org.junit.*;
 import org.junit.rules.ExpectedException;
-import javax.sql.DataSource;
 
 import static org.junit.Assert.*;
-//TODO UPDATE BODY
 /**
  * @author Slavomir Katkin
  */
 public class AgentManagerImplTest {
     private AgentManagerImpl manager;
-    private DataSource ds;
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
@@ -42,6 +39,14 @@ public class AgentManagerImplTest {
         manager.createAgent(agent1);
         Agent agent2 = testAgent2Builder().id(agent1.getId()).build();
         manager.createAgent(agent2);
+    }
+
+    @Test
+    public void createAgent () throws Exception {
+        Agent agent1 = testAgent1Builder().build();
+        manager.createAgent(agent1);
+        assertFalse(manager.findAllAgents().isEmpty());
+        assertTrue(manager.findAllAgents().contains(agent1));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -80,10 +85,42 @@ public class AgentManagerImplTest {
         manager.createAgent(agent);
     }
 
-
     @Test
     public void updateAgent() throws Exception {
+        Agent agent1 = testAgent1Builder().build();
+        Agent agent2 = testAgent2Builder().build();
+        manager.createAgent(agent1);
+        manager.createAgent(agent2);
+        agent1.setFullName("John Snow");
+        manager.updateAgent(agent1);
+
+        assertTrue(manager.findAllAgents().size() == 2);
+        Agent agent = manager.findAgentById(agent1.getId());
+        assertTrue(agent.getFullName().equals("John Snow"));
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void updateNullAgent() throws Exception {
+        manager.updateAgent(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void updateAgentWithNullParameter() throws Exception {
+        Agent agent1 = testAgent1Builder().build();
+        manager.createAgent(agent1);
+        agent1.setEquipment(null);
+        manager.updateAgent(agent1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void updateNonexistentAgent() throws Exception {
+        Agent agent1 = testAgent1Builder().build();
+        Agent agent2 = testAgent2Builder().build();
+        manager.createAgent(agent1);
+        agent1.setFullName("John Snow");
+        manager.updateAgent(agent2);
+    }
+
 
     @Test
     public void deleteAgent() throws Exception {
@@ -110,6 +147,14 @@ public class AgentManagerImplTest {
         Agent agent1 = testAgent1Builder().build();
         manager.createAgent(agent1);
         assertEquals(manager.findAgentById(agent1.getId()), agent1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void findAgentByNonexistentId() throws Exception {
+        Agent agent1 = testAgent1Builder().build();
+        Agent agent2 = testAgent2Builder().build();
+        manager.createAgent(agent1);
+        manager.findAgentById(agent2.getId());
     }
 
     @Test
