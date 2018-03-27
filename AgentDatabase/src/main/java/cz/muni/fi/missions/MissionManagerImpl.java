@@ -21,6 +21,10 @@ public class MissionManagerImpl implements MissionManager{
         this.jdbc = new JdbcTemplate(dataSource);
     }
 
+    public MissionManagerImpl() {
+
+    }
+
 
     public void createMission(Mission mission){
         //TODO: if-y
@@ -35,13 +39,12 @@ public class MissionManagerImpl implements MissionManager{
         Number id = insertMission.executeAndReturnKey(parameters);
         mission.setId(id.longValue());
     }
-
+/*
     private RowMapper<Mission> missionMapper = (rs, rowNum) ->
             new Mission(rs.getLong("id"),
                     rs.getString("target"),
-                    Enum.valueOf(Equipment, rs.getString("necessaryEquipment")),
-                    LocalDate.of);
-
+                    Enum.valueOf(Equipment.class, rs.getString("necessaryEquipment"));
+*/
     public void updateMission(Mission mission){
         jdbc.update("UPDATE missions set target=?,necessaryEquipment=?,deadline=? where id=?",
                 mission.getTarget(),

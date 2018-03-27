@@ -24,7 +24,7 @@ public class AgentManagerImpl implements AgentManager {
                     rs.getLong("id"),
                     rs.getString("fullName"),
                     rs.getString("secretName"),
-                    Enum.valueOf(Equipment.class,rs.getString("equipment")));
+                    Enum.valueOf(Equipment.class, rs.getString("equipment")));
 
     private boolean hasNulls(Agent agent) {
         return (agent == null ||

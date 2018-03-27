@@ -1,7 +1,10 @@
 package cz.muni.fi.agents;
 
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
+import javax.sql.DataSource;
+import java.sql.SQLException;
 
 import static org.junit.Assert.*;
 /**
@@ -15,7 +18,16 @@ public class AgentManagerImplTest {
 
     @Before
     public void setUp() throws Exception {
-        manager = new AgentManagerImpl();
+        manager = new AgentManagerImpl(prepareDataSource());
+    }
+
+    private static DataSource prepareDataSource() throws SQLException {
+        BasicDataSource bds = new BasicDataSource(); //Apache DBCP connection pooling DataSource
+        bds.setDriverClassName("jdbc.driver");
+        bds.setUrl("jdbc.url");
+        bds.setUsername("jdbc.user");
+        bds.setPassword("jdbc.password");
+        return bds;
     }
 
     private AgentBuilder testAgent1Builder() {
