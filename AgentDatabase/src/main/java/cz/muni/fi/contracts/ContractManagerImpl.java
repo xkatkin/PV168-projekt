@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
 import javax.sql.DataSource;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -22,6 +23,7 @@ public class ContractManagerImpl implements ContractManager{
     private AgentManagerImpl agentManager;
     private MissionManagerImpl missionManager;
 
+    private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d MMM yyyy");
 
     public ContractManagerImpl(DataSource dataSource, LocalDate now) {
         this.jdbc = new JdbcTemplate(dataSource);
@@ -40,37 +42,46 @@ public class ContractManagerImpl implements ContractManager{
 
     private RowMapper<Contract> contractMapper = (rs, rowNum) ->
             new Contract(rs.getLong("id"),
-                    LocalDate.parse(rs.getString("startDate")),
-                    LocalDate.parse(rs.getString("endDate")),
+                    LocalDate.parse(rs.getString("startDate"), dateFormatter),
+                    LocalDate.parse(rs.getString("endDate"), dateFormatter),
                     agentManager.findAgentById(rs.getLong("agent")),
                     missionManager.findMissionByid(rs.getLong("mission")));
 
     private boolean hasInvalidDates(Contract contract) {
-        return contract.getStartDate().isAfter(contract.getEndDate()) &&
-                contract.getEndDate().isBefore(now);
+        return contract.getStartDate().isAfter(contract.getEndDate()) ||
+                contract.getEndDate().isBefore(now) ||
+                contract.getMission().getDeadline().isBefore(contract.getEndDate() );
     }
 
-    //I GUESS LOL
+    private boolean inRange(LocalDate begin, LocalDate val, LocalDate end){
+        return begin.isBefore(val) && end.isAfter(val) && begin.isBefore(end);
+    }
+
+
     private boolean hasInvalidAgent(Contract contract) {
         List<Contract> agentsContracts = findContractsByAgentId(contract.getAgent().getId());
-        boolean invalid = false;
+        //situations, when dates are in conflict (4 cases solves all options)
         for(Contract agentsContract : agentsContracts) {
-            invalid = invalid ||
-                    //newStart oldStart newEnd oldEnd
-                    (agentsContract.getEndDate().isAfter(contract.getStartDate()) &&
-                    agentsContract.getEndDate().isBefore(contract.getEndDate())) ||
-                    //oldStart newStart oldEnd newEnd
-                    (agentsContract.getStartDate().isBefore(contract.getEndDate()) &&
-                     agentsContract.getEndDate().isBefore(contract.getEndDate())) ||
-                    // newStart oldStart oldEnd newEnd
-                    (agentsContract.getStartDate().isAfter(contract.getStartDate()) &&
-                    agentsContract.getEndDate().isBefore(contract.getEndDate())) ||
-                    //oldStart newStart newEnd oldEnd
-                    (agentsContract.getStartDate().isBefore(contract.getStartDate()) &&
-                    agentsContract.getEndDate().isAfter(agentsContract.getEndDate()));
+              //oldStart newEnd oldEnd
+              if (inRange(agentsContract.getStartDate(), contract.getEndDate(), agentsContract.getEndDate())){
+                  return false;
+              }
+              //oldStart newStart oldEnd
+              if (inRange(agentsContract.getStartDate(), contract.getStartDate(), agentsContract.getEndDate())){
+                  return false;
+              }
+              //newStart oldEnd newEnd
+              if (inRange(contract.getStartDate(), agentsContract.getEndDate(), contract.getEndDate())){
+                return false;
+              }
+              //newStart oldStart newEnd
+              if (inRange(contract.getStartDate(), agentsContract.getStartDate(), contract.getEndDate())){
+                return false;
+              }
         }
-        return invalid || agentManager.findAgentById(contract.getAgent().getId()) != null;
+        return agentManager.findAgentById(contract.getAgent().getId()) != null;
     }
+
 
     private boolean hasInvalidMission(Contract contract) {
         return findContractByMissionId(contract.getMission().getId()) != null ||
@@ -80,7 +91,7 @@ public class ContractManagerImpl implements ContractManager{
     @Override
     public void createContract(Contract contract) {
         if(hasNulls(contract) ||
-                contract.getId() != null ||
+                contract.getId() != 0 ||
                 hasInvalidDates(contract) ||
                 hasInvalidAgent(contract) ||
                 hasInvalidMission(contract)) {
@@ -91,8 +102,8 @@ public class ContractManagerImpl implements ContractManager{
                 .withTableName("contracts").usingGeneratedKeyColumns("id");
 
         SqlParameterSource parameters = new MapSqlParameterSource()
-                .addValue("startDate", contract.getStartDate())
-                .addValue("endDate", contract.getEndDate() )
+                .addValue("startDate", dateFormatter.format(contract.getStartDate()))
+                .addValue("endDate", dateFormatter.format(contract.getEndDate()))
                 .addValue("agent", contract.getAgent().getId())
                 .addValue("mission", contract.getMission().getId());
 
@@ -129,7 +140,7 @@ public class ContractManagerImpl implements ContractManager{
 
     @Override
     public Contract findContractByMissionId(Long missionId) {
-        return jdbc.queryForObject("SELECT * FROM contracts WHERE agent=?", contractMapper, missionId);
+        return jdbc.queryForObject("SELECT * FROM contracts WHERE mission=?", contractMapper, missionId);
     }
 
     @Override

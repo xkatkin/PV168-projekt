@@ -54,7 +54,7 @@ public class ContractManagerImplTest {
     private MissionBuilder testMission3Builder(){
         return new MissionBuilder().target("FI at MUNI")
                 .necesaryEquipmnt(Equipment.CHARMINGCOMPANION)
-                .deadline(LocalDate.of(2018, Month.MARCH, 24));
+                .deadline(LocalDate.of(2019, Month.MARCH, 24));
     }
 
     private AgentBuilder testAgent1Builder() {
@@ -75,8 +75,8 @@ public class ContractManagerImplTest {
         return new ContractBuilder()
                 .agent(testAgent1Builder().build())
                 .mission(testMission1Builder().build())
-                .endDate(LocalDate.of(2018, Month.MARCH, 23))
-                .startDate(LocalDate.of(2018, Month.MARCH, 10));
+                .endDate(LocalDate.of(2019, Month.MARCH, 23))
+                .startDate(LocalDate.of(2019, Month.MARCH, 10));
     }
 
     private ContractBuilder testContract2(){
@@ -84,7 +84,7 @@ public class ContractManagerImplTest {
                 .agent(testAgent2Builder().build())
                 .mission(testMission2Builder().build())
                 .endDate(LocalDate.of(2019, Month.MARCH, 19))
-                .startDate(LocalDate.of(2018, Month.SEPTEMBER, 2));
+                .startDate(LocalDate.of(2019, Month.SEPTEMBER, 2));
     }
 
     private ContractBuilder testContract3(){
