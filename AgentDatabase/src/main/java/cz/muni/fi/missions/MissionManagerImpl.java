@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
 import javax.sql.DataSource;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ import java.util.List;
 public class MissionManagerImpl implements MissionManager{
     private JdbcTemplate jdbc;
 
-    public MissionManagerImpl(DataSource dataSource) {
+    MissionManagerImpl(DataSource dataSource) {
         this.jdbc = new JdbcTemplate(dataSource);
     }
 
@@ -34,6 +35,7 @@ public class MissionManagerImpl implements MissionManager{
                 mission.getNecesarryEquipment() == null);
     }
 
+    @Override
     public void createMission(Mission mission){
         if(hasNulls(mission) || mission.getId() != 0) {
             throw new IllegalArgumentException("Cannot create mission");
@@ -45,7 +47,7 @@ public class MissionManagerImpl implements MissionManager{
         SqlParameterSource parameters = new MapSqlParameterSource()
                 .addValue("target", mission.getTarget())
                 .addValue("necessaryEquipment", mission.getNecesarryEquipment())
-                .addValue("deadline", mission.getDeadline());
+                .addValue("deadline", dateFormatter.format(mission.getDeadline()));
 
         Number id = insertMission.executeAndReturnKey(parameters);
         mission.setId(id.longValue());
@@ -58,7 +60,7 @@ public class MissionManagerImpl implements MissionManager{
         jdbc.update("UPDATE missions set target=?,necessaryEquipment=?,deadline=? where id=?",
                 mission.getTarget(),
                 mission.getNecesarryEquipment(),
-                mission.getDeadline(),
+                dateFormatter.format(mission.getDeadline()),
                 mission.getId());
     }
 
@@ -71,6 +73,7 @@ public class MissionManagerImpl implements MissionManager{
 
     }
 
+    @Override
     public List<Mission> findAllMissions(){
         return jdbc.query("SELECT * FROM missions", missionMapper);
     }
