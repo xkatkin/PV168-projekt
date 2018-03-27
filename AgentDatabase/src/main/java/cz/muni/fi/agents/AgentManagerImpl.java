@@ -31,7 +31,6 @@ public class AgentManagerImpl implements AgentManager {
                 agent.getFullName() == null ||
                 agent.getSecretName() == null ||
                 agent.getEquipment() == null);
-
     }
 
     public void createAgent(Agent agent) {
@@ -49,7 +48,6 @@ public class AgentManagerImpl implements AgentManager {
 
         Number id = insertAgent.executeAndReturnKey(parameters);
         agent.setId(id.longValue());
-
     }
 
     public void updateAgent(Agent agent) {

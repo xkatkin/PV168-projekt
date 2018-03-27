@@ -4,11 +4,14 @@ package cz.muni.fi.contracts;
 import cz.muni.fi.agents.AgentBuilder;
 import cz.muni.fi.agents.Equipment;
 import cz.muni.fi.missions.MissionBuilder;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import javax.sql.DataSource;
+import java.sql.SQLException;
 import java.time.*;
 import java.util.List;
 
@@ -20,8 +23,8 @@ import static org.junit.Assert.*;
 public class ContractManagerImplTest {
     private ContractManager contractManager;
 
-    private final static ZonedDateTime NOW
-            = LocalDateTime.of(2018, Month.MARCH, 15, 14, 00).atZone(ZoneId.of("UTC"));
+    private final static LocalDate NOW
+            = LocalDate.of(2018, Month.MARCH, 15);
 
 
     @Rule
@@ -29,7 +32,16 @@ public class ContractManagerImplTest {
 
     @Before
     public void setUp() throws Exception {
-        contractManager = new ContractManagerImpl();
+        contractManager = new ContractManagerImpl(prepareDataSource() ,NOW);
+    }
+
+    private static DataSource prepareDataSource() throws SQLException {
+        BasicDataSource bds = new BasicDataSource(); //Apache DBCP connection pooling DataSource
+        bds.setDriverClassName("jdbc.driver");
+        bds.setUrl("jdbc.url");
+        bds.setUsername("jdbc.user");
+        bds.setPassword("jdbc.password");
+        return bds;
     }
 
     private MissionBuilder testMission1Builder(){
@@ -212,7 +224,7 @@ public class ContractManagerImplTest {
     public void simplyDeleteContract() throws Exception {
         Contract contract = testContract3().build();
         contractManager.createContract(contract);
-        contractManager.deleteContract(contract);
+        contractManager.deleteContract(contract.getId());
         assertTrue(contractManager.findAllContracts().size() == 0);
     }
 
@@ -229,8 +241,8 @@ public class ContractManagerImplTest {
         assertTrue(contractManager.findAllContracts().size() == 2);
         assertFalse(contractManager.findAllContracts().contains(contract1));
 
-        contractManager.deleteContract(contract2);
-        contractManager.deleteContract(contract3);
+        contractManager.deleteContract(contract2.getId());
+        contractManager.deleteContract(contract3.getId());
         assertTrue(contractManager.findAllContracts().isEmpty());
 
     }
@@ -238,7 +250,7 @@ public class ContractManagerImplTest {
     @Test(expected = IllegalArgumentException.class)
     public void deleteNonExistingContract() throws Exception {
         Contract contract = testContract3().build();
-        contractManager.deleteContract(contract);
+        contractManager.deleteContract(contract.getId());
     }
 
     @Test

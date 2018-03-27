@@ -8,7 +8,7 @@ import java.time.LocalDate;
  * @author Samuel Gorta
  */
 public class Mission {
-    private long id;
+    private Long id;
     private String target;
     private Equipment necessaryEquipment;
     private LocalDate deadline;
@@ -16,7 +16,7 @@ public class Mission {
     public Mission() {
     }
 
-    public Mission(long id, String target, Equipment necesarryEquipment, LocalDate deadline) {
+    public Mission(Long id, String target, Equipment necesarryEquipment, LocalDate deadline) {
         this.id = id;
         this.target = target;
         this.necessaryEquipment = necesarryEquipment;
@@ -27,7 +27,7 @@ public class Mission {
         return necessaryEquipment;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
