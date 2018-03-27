@@ -4,7 +4,11 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 import javax.sql.DataSource;
-import java.sql.SQLException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.sql.*;
+import java.util.Properties;
 
 import static org.junit.Assert.*;
 /**
@@ -21,13 +25,28 @@ public class AgentManagerImplTest {
         manager = new AgentManagerImpl(prepareDataSource());
     }
 
-    private static DataSource prepareDataSource() throws SQLException {
-        BasicDataSource bds = new BasicDataSource(); //Apache DBCP connection pooling DataSource
-        bds.setDriverClassName("jdbc.driver");
-        bds.setUrl("jdbc.url");
-        bds.setUsername("jdbc.user");
-        bds.setPassword("jdbc.password");
-        return bds;
+    private static DataSource prepareDataSource() throws SQLException, IOException {
+        Properties config = new Properties();
+        config.load(AgentManagerImplTest.class.getResourceAsStream("/config"));
+
+        BasicDataSource ds = new BasicDataSource();
+        ds.setDriverClassName(config.getProperty("jdbc.driver"));
+        ds.setUrl(config.getProperty("jdbc.url"));
+        ds.setUsername(config.getProperty("jdbc.user"));
+        ds.setPassword(config.getProperty("jdbc.password"));
+
+        //try (Connection c = ds.getConnection()) {
+        //    DatabaseMetaData metaData = c.getMetaData();
+        //    System.out.println(metaData.getDriverName() + " " + metaData.getDriverVersion());
+        //    for (String line : Files.readAllLines(Paths.get("src", "main", "resources", "data.sql"))) {
+        //        if (line.trim().isEmpty() || line.startsWith("--")) continue;
+        //        if (line.endsWith(";")) line = line.substring(0, line.length() - 1);
+        //        try (PreparedStatement st1 = c.prepareStatement(line)) {
+        //            st1.execute();
+        //        }
+        //    }
+        //}
+        return  ds;
     }
 
     private AgentBuilder testAgent1Builder() {

@@ -34,8 +34,11 @@ public class AgentManagerImpl implements AgentManager {
     }
 
     public void createAgent(Agent agent) {
-        if(hasNulls(agent) || agent.getId() != null) {
-            throw new IllegalArgumentException("Cannot create agent");
+        if(hasNulls(agent)) {
+            throw new IllegalArgumentException("Cannot create agent with null parameters");
+        }
+        if( agent.getId() != 0) {
+            throw new IllegalArgumentException("Agent already exists within database ");
         }
 
         SimpleJdbcInsert insertAgent = new SimpleJdbcInsert(jdbc)
