@@ -60,7 +60,7 @@ public class AgentManagerImpl implements AgentManager {
         jdbc.update("UPDATE agents SET fullName=?,secretName=?,equipment=? WHERE id=?",
                 agent.getFullName(),
                 agent.getSecretName(),
-                agent.getEquipment(),
+                agent.getEquipment().name(),
                 agent.getId());
     }
 
@@ -69,7 +69,11 @@ public class AgentManagerImpl implements AgentManager {
     }
 
     public Agent findAgentById(Long agentId) {
-        return jdbc.queryForObject("SELECT * FROM agents WHERE id=?", agentMapper, agentId);
+        try {
+            return jdbc.queryForObject("SELECT * FROM agents WHERE id=?", agentMapper, agentId);
+        } catch (org.springframework.dao.EmptyResultDataAccessException e) {
+            throw new IllegalArgumentException("No such agent in database");
+        }
     }
 
     public List<Agent> findAllAgents() {

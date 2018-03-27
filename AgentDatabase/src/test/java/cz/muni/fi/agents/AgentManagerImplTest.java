@@ -120,13 +120,16 @@ public class AgentManagerImplTest {
         manager.updateAgent(agent1);
     }
 
-    @Test(expected = org.springframework.dao.DataIntegrityViolationException.class)
+    @Test
     public void updateNonexistentAgent() throws Exception {
         Agent agent1 = testAgent1Builder().build();
         Agent agent2 = testAgent2Builder().build();
         manager.createAgent(agent1);
         agent1.setFullName("John Snow");
         manager.updateAgent(agent2);
+
+        assertTrue(manager.findAllAgents().size() == 1);
+        assertTrue(manager.findAgentById(agent1.getId()).getFullName().equals("James Bond"));
     }
 
 
@@ -160,7 +163,7 @@ public class AgentManagerImplTest {
         assertEquals(manager.findAgentById(agent1.getId()), agent1);
     }
 
-    @Test(expected = org.springframework.dao.EmptyResultDataAccessException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void findAgentByNonexistentId() throws Exception {
         Agent agent1 = testAgent1Builder().build();
         Agent agent2 = testAgent2Builder().build();
