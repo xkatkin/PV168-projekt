@@ -9,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import static org.junit.Assert.*;
 
 /**
@@ -52,8 +53,8 @@ public class AgentManagerImplTest {
     public void createAgent () throws Exception {
         Agent agent1 = testAgent1Builder().build();
         manager.createAgent(agent1);
-        assertFalse(manager.findAllAgents().isEmpty());
         assertTrue(manager.findAllAgents().contains(agent1));
+        assertTrue(agent1.getId() != 0);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -119,13 +120,16 @@ public class AgentManagerImplTest {
         manager.updateAgent(agent1);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void updateNonexistentAgent() throws Exception {
         Agent agent1 = testAgent1Builder().build();
         Agent agent2 = testAgent2Builder().build();
         manager.createAgent(agent1);
         agent1.setFullName("John Snow");
         manager.updateAgent(agent2);
+
+        assertTrue(manager.findAllAgents().size() == 1);
+        assertTrue(manager.findAgentById(agent1.getId()).getFullName().equals("James Bond"));
     }
 
 
@@ -142,11 +146,14 @@ public class AgentManagerImplTest {
         assertTrue(manager.findAllAgents().size() == 1);
     }
 
-
-    @Test(expected = IllegalArgumentException.class)
-    public void deleteNonexistentAgent() throws Exception {
+    @Test
+    public void deleteAgentWithNoId() {
         Agent agent1 = testAgent1Builder().build();
+        Agent agent2 = testAgent2Builder().build();
+        manager.createAgent(agent2);
         manager.deleteAgent(agent1.getId());
+
+        assertTrue(manager.findAllAgents().size() == 1);
     }
 
     @Test
