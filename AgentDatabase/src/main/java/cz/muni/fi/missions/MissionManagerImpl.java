@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
 import javax.sql.DataSource;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -21,11 +22,13 @@ public class MissionManagerImpl implements MissionManager{
         this.jdbc = new JdbcTemplate(dataSource);
     }
 
+    private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d MMM yyyy");
+
     private RowMapper<Mission> missionMapper = (rs, rowNum) ->
             new Mission(rs.getLong("id"),
                     rs.getString("target"),
                     Enum.valueOf(Equipment.class, rs.getString("necessaryEquipment")),
-                    LocalDate.parse(rs.getString("deadline")));
+                    LocalDate.parse(rs.getString("deadline"), dateFormatter));
 
     private boolean hasNulls(Mission mission) {
         return (mission == null ||
@@ -34,6 +37,7 @@ public class MissionManagerImpl implements MissionManager{
                 mission.getNecesarryEquipment() == null);
     }
 
+    @Override
     public void createMission(Mission mission){
         if(hasNulls(mission) || mission.getId() != 0) {
             throw new IllegalArgumentException("Cannot create mission");
@@ -44,8 +48,8 @@ public class MissionManagerImpl implements MissionManager{
 
         SqlParameterSource parameters = new MapSqlParameterSource()
                 .addValue("target", mission.getTarget())
-                .addValue("necessaryEquipment", mission.getNecesarryEquipment())
-                .addValue("deadline", mission.getDeadline());
+                .addValue("necessaryEquipment", mission.getNecesarryEquipment().name())
+                .addValue("deadline", dateFormatter.format(mission.getDeadline()));
 
         Number id = insertMission.executeAndReturnKey(parameters);
         mission.setId(id.longValue());
@@ -55,22 +59,33 @@ public class MissionManagerImpl implements MissionManager{
         if(hasNulls(mission)) {
             throw new IllegalArgumentException("Cannot update with null parameters");
         }
-        jdbc.update("UPDATE missions set target=?,necessaryEquipment=?,deadline=? where id=?",
-                mission.getTarget(),
-                mission.getNecesarryEquipment(),
-                mission.getDeadline(),
-                mission.getId());
+        boolean b = jdbc.update("UPDATE missions set target=?,necessaryEquipment=?,deadline=? where id=?",
+             mission.getTarget(),
+             mission.getNecesarryEquipment().name(),
+             dateFormatter.format(mission.getDeadline()),
+             mission.getId()) == 1;
+
+        if (!b){
+            throw new IllegalArgumentException("Updating not existing mission.");
+        }
     }
 
     public boolean deleteMission(Long missionId){
-        return jdbc.update("DELETE * FROM customers WHERE id=?", missionId) == 1;
+    if ( jdbc.update("DELETE FROM missions WHERE id=?", missionId) != 1){
+        throw new IllegalArgumentException("Invalid mission ID.");
+    }
+    return true;
     }
 
     public Mission findMissionByid(Long missionId){
-        return jdbc.queryForObject("SELECT * FROM mission WHERE id=?", missionMapper, missionId);
-
+        try {
+            return jdbc.queryForObject("SELECT * FROM missions WHERE id=?", missionMapper, missionId);
+        } catch (org.springframework.dao.EmptyResultDataAccessException e){
+            throw new IllegalArgumentException("No Mission in database.");
+        }
     }
 
+    @Override
     public List<Mission> findAllMissions(){
         return jdbc.query("SELECT * FROM missions", missionMapper);
     }

@@ -18,9 +18,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Month;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.*;
 
 /**
  * @author Samuel Gorta
@@ -173,7 +171,6 @@ public class MissionManagerImplTest {
         Mission mission3 = testMission3Builder().build();
 
         missionManager.createMission(mission1);
-        missionManager.createMission(mission2);
         missionManager.createMission(mission3);
 
         assertFalse(missionManager.findAllMissions().isEmpty());
@@ -183,9 +180,9 @@ public class MissionManagerImplTest {
         assertFalse(missionManager.findAllMissions().contains(mission1));
         assertFalse(missionManager.findAllMissions().isEmpty());
 
-        missionManager.createMission(mission1);
+        missionManager.createMission(mission2);
         assertFalse(missionManager.findAllMissions().isEmpty());
-        assertTrue(missionManager.findAllMissions().contains(mission1));
+        assertTrue(missionManager.findAllMissions().contains(mission2));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -245,7 +242,7 @@ public class MissionManagerImplTest {
         Mission mission2 = testMission2Builder().build();
 
         missionManager.createMission(mission1);
-        assertEquals(missionManager.findMissionByid(mission2.getId()), mission1);
+        assertNotSame(missionManager.findMissionByid(mission2.getId()), mission1);
     }
 
     @Test
