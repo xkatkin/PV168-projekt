@@ -24,10 +24,21 @@ public interface ContractManager {
 
     /**
      * Deletes contract from the database
-     * @param contract - contract to be deleted
+     * @param contractId - id of contract to be deleted
      * @return - true if contract was deleted, false otherwise
      */
-    boolean deleteContract(Contract contract);
+    boolean deleteContract(Long contractId);
+
+    /**
+     * Finds contract in the database.
+     * @param contractId - id of contract to be found
+     * @return - found contract
+     */
+    Contract findContractById(Long contractId);
+
+    List<Contract> findContractsByAgentId(Long agentId);
+
+    Contract findContractByMissionId(Long missionId);
 
     /**
      * Returns all contracts within database.

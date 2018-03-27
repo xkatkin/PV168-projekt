@@ -24,14 +24,14 @@ public interface MissionManager {
      * @param missionId to delete
      * @return true if deletion was succes, false otherwise
      */
-    boolean deleteMission(long missionId);
+    boolean deleteMission(Long missionId);
 
     /**
      * Function finds mission in database by id.
      * @param missionId to find
      * @return found mission
      */
-    Mission findMissionByid(long missionId);
+    Mission findMissionByid(Long missionId);
 
     /**
      * Function finds all missions in database.

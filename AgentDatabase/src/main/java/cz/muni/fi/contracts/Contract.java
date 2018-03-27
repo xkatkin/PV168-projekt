@@ -9,13 +9,13 @@ import java.time.LocalDate;
  * @author Slavomir Katkin
  */
 public class Contract {
-    private long id;
+    private Long id;
     private LocalDate startDate;
     private LocalDate endDate;
     private Agent agent;
     private Mission mission;
 
-    public Contract(long id, LocalDate startDate, LocalDate endDate, Agent agent, Mission mission) {
+    public Contract(Long id, LocalDate startDate, LocalDate endDate, Agent agent, Mission mission) {
         this.id = id;
         startDate = startDate;
         endDate = endDate;
@@ -27,11 +27,11 @@ public class Contract {
 
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

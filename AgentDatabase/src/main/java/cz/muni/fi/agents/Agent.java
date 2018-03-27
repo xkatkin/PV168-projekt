@@ -4,12 +4,12 @@ package cz.muni.fi.agents;
  * @author Slavomir Katkin
  */
 public class Agent {
-    private long id;
+    private Long id;
     private String fullName;
     private String secretName;
     private Equipment equipment;
 
-    public Agent(long id, String fullName, String secretName, Equipment equipment) {
+    public Agent(Long id, String fullName, String secretName, Equipment equipment) {
         this.id = id;
         this.fullName = fullName;
         this.secretName = secretName;
@@ -20,11 +20,11 @@ public class Agent {
     public Agent() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

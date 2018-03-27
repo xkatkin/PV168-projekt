@@ -22,19 +22,27 @@ public class MissionManagerImpl implements MissionManager{
         this.jdbc = new JdbcTemplate(dataSource);
     }
 
-    private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d MMM yyyy");
+    private RowMapper<Mission> missionMapper = (rs, rowNum) ->
+            new Mission(rs.getLong("id"),
+                    rs.getString("target"),
+                    Enum.valueOf(Equipment.class, rs.getString("necessaryEquipment")),
+                    LocalDate.parse(rs.getString("deadline")));
+
+    private boolean hasNulls(Mission mission) {
+        return (mission == null ||
+                mission.getTarget() == null ||
+                mission.getDeadline() == null ||
+                mission.getNecesarryEquipment() == null);
+    }
 
     @Override
     public void createMission(Mission mission){
-        if (mission == null){
-            throw new IllegalArgumentException("Argument mission is null.");
-        }
-        if (mission.getTarget() == null || mission.getDeadline() == null){
-            throw new IllegalArgumentException("Mission with illegal atributes.");
+        if(hasNulls(mission) || mission.getId() != 0) {
+            throw new IllegalArgumentException("Cannot create mission");
         }
 
         SimpleJdbcInsert insertMission = new SimpleJdbcInsert(jdbc)
-                .withTableName("missions").usingGeneratedKeyColumns("id");
+            .withTableName("missions").usingGeneratedKeyColumns("id");
 
         SqlParameterSource parameters = new MapSqlParameterSource()
                 .addValue("target", mission.getTarget())
@@ -45,14 +53,10 @@ public class MissionManagerImpl implements MissionManager{
         mission.setId(id.longValue());
     }
 
-    private RowMapper<Mission> missionMapper = (rs, rowNum) ->
-            new Mission(rs.getLong("id"),
-                    rs.getString("target"),
-                    Enum.valueOf(Equipment.class, rs.getString("necessaryEquipment")),
-                    LocalDate.parse(rs.getString("deadline"), dateFormatter));
-
-    @Override
     public void updateMission(Mission mission){
+        if(hasNulls(mission)) {
+            throw new IllegalArgumentException("Cannot update with null parameters");
+        }
         jdbc.update("UPDATE missions set target=?,necessaryEquipment=?,deadline=? where id=?",
                 mission.getTarget(),
                 mission.getNecesarryEquipment(),
@@ -60,19 +64,18 @@ public class MissionManagerImpl implements MissionManager{
                 mission.getId());
     }
 
-    @Override
-    public boolean deleteMission(long missionId){
-        return jdbc.update("DELETE FROM mission WHERE id=?", missionId) == 1;
+    public boolean deleteMission(Long missionId){
+        return jdbc.update("DELETE * FROM customers WHERE id=?", missionId) == 1;
     }
 
-    @Override
-    public Mission findMissionByid(long missionId){
+    public Mission findMissionByid(Long missionId){
         return jdbc.queryForObject("SELECT * FROM mission WHERE id=?", missionMapper, missionId);
+
     }
 
     @Override
     public List<Mission> findAllMissions(){
-        return jdbc.query("SELECT * FROM mission", missionMapper);
+        return jdbc.query("SELECT * FROM missions", missionMapper);
     }
 
 }

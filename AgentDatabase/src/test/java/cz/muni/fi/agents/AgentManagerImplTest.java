@@ -1,22 +1,29 @@
 package cz.muni.fi.agents;
 
+import cz.muni.fi.mySpringTestConfig;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.Assert.*;
+
 /**
  * @author Slavomir Katkin
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = {mySpringTestConfig.class})
+@Transactional
 public class AgentManagerImplTest {
+    @Autowired
     private AgentManagerImpl manager;
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
-    @Before
-    public void setUp() throws Exception {
-        manager = new AgentManagerImpl();
-    }
 
     private AgentBuilder testAgent1Builder() {
         return new AgentBuilder()
