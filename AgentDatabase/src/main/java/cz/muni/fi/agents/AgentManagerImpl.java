@@ -38,7 +38,7 @@ public class AgentManagerImpl implements AgentManager {
             throw new IllegalArgumentException("Cannot create agent with null parameters");
         }
         if( agent.getId() != 0) {
-            throw new IllegalArgumentException("Agent already exists within database ");
+            throw new IllegalArgumentException("Agent already exists within database");
         }
 
         SimpleJdbcInsert insertAgent = new SimpleJdbcInsert(jdbc)
@@ -57,7 +57,7 @@ public class AgentManagerImpl implements AgentManager {
         if(hasNulls(agent)) {
             throw new IllegalArgumentException("Cannot update with null parameters");
         }
-        jdbc.update("UPDATE agent set fullName=?,secretName=?,equipment=? where id=?",
+        jdbc.update("UPDATE agents SET fullName=?,secretName=?,equipment=? WHERE id=?",
                 agent.getFullName(),
                 agent.getSecretName(),
                 agent.getEquipment(),

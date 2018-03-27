@@ -1,53 +1,29 @@
 package cz.muni.fi.agents;
 
-import org.apache.commons.dbcp2.BasicDataSource;
+import cz.muni.fi.mySpringTestConfig;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
-import javax.sql.DataSource;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.sql.*;
-import java.util.Properties;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.Assert.*;
+
 /**
  * @author Slavomir Katkin
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = {mySpringTestConfig.class})
+@Transactional
 public class AgentManagerImplTest {
+    @Autowired
     private AgentManagerImpl manager;
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
-    @Before
-    public void setUp() throws Exception {
-        manager = new AgentManagerImpl(prepareDataSource());
-    }
-
-    private static DataSource prepareDataSource() throws SQLException, IOException {
-        Properties config = new Properties();
-        config.load(AgentManagerImplTest.class.getResourceAsStream("/config"));
-
-        BasicDataSource ds = new BasicDataSource();
-        ds.setDriverClassName(config.getProperty("jdbc.driver"));
-        ds.setUrl(config.getProperty("jdbc.url"));
-        ds.setUsername(config.getProperty("jdbc.user"));
-        ds.setPassword(config.getProperty("jdbc.password"));
-
-        //try (Connection c = ds.getConnection()) {
-        //    DatabaseMetaData metaData = c.getMetaData();
-        //    System.out.println(metaData.getDriverName() + " " + metaData.getDriverVersion());
-        //    for (String line : Files.readAllLines(Paths.get("src", "main", "resources", "data.sql"))) {
-        //        if (line.trim().isEmpty() || line.startsWith("--")) continue;
-        //        if (line.endsWith(";")) line = line.substring(0, line.length() - 1);
-        //        try (PreparedStatement st1 = c.prepareStatement(line)) {
-        //            st1.execute();
-        //        }
-        //    }
-        //}
-        return  ds;
-    }
 
     private AgentBuilder testAgent1Builder() {
         return new AgentBuilder()

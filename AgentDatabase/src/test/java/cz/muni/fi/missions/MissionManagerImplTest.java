@@ -1,11 +1,17 @@
 package cz.muni.fi.missions;
 
 import cz.muni.fi.agents.Equipment;
+import cz.muni.fi.mySpringTestConfig;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -19,25 +25,16 @@ import static junit.framework.TestCase.assertTrue;
 /**
  * @author Samuel Gorta
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = {mySpringTestConfig.class})
+@Transactional
 public class MissionManagerImplTest {
+    @Autowired
     private MissionManagerImpl missionManager;
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
-    @Before
-    public void setUp() throws Exception {
-        missionManager = new MissionManagerImpl(prepareDataSource());
-    }
-
-    private static DataSource prepareDataSource() throws SQLException {
-        BasicDataSource bds = new BasicDataSource(); //Apache DBCP connection pooling DataSource
-        bds.setDriverClassName("jdbc.driver");
-        bds.setUrl("jdbc.url");
-        bds.setUsername("jdbc.user");
-        bds.setPassword("jdbc.password");
-        return bds;
-    }
 
     private MissionBuilder testMission1Builder(){
         return new MissionBuilder().target("Buckingham Palace")

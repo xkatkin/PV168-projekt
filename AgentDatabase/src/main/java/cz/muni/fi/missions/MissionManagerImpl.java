@@ -25,7 +25,7 @@ public class MissionManagerImpl implements MissionManager{
             new Mission(rs.getLong("id"),
                     rs.getString("target"),
                     Enum.valueOf(Equipment.class, rs.getString("necessaryEquipment")),
-                    LocalDate.parse("deadline"));
+                    LocalDate.parse(rs.getString("deadline")));
 
     private boolean hasNulls(Mission mission) {
         return (mission == null ||
@@ -35,7 +35,7 @@ public class MissionManagerImpl implements MissionManager{
     }
 
     public void createMission(Mission mission){
-        if(hasNulls(mission) || mission.getId() != null) {
+        if(hasNulls(mission) || mission.getId() != 0) {
             throw new IllegalArgumentException("Cannot create mission");
         }
 
@@ -63,7 +63,7 @@ public class MissionManagerImpl implements MissionManager{
     }
 
     public boolean deleteMission(Long missionId){
-        return jdbc.update("DELETE FROM customers WHERE id=?", missionId) == 1;
+        return jdbc.update("DELETE * FROM customers WHERE id=?", missionId) == 1;
     }
 
     public Mission findMissionByid(Long missionId){
