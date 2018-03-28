@@ -17,8 +17,8 @@ public class Contract {
 
     public Contract(Long id, LocalDate startDate, LocalDate endDate, Agent agent, Mission mission) {
         this.id = id;
-        startDate = startDate;
-        endDate = endDate;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.agent = agent;
         this.mission = mission;
     }
@@ -40,7 +40,7 @@ public class Contract {
     }
 
     public void setStartDate(LocalDate startDate) {
-        startDate = startDate;
+        this.startDate = startDate;
     }
 
     public LocalDate getEndDate() {
@@ -48,7 +48,7 @@ public class Contract {
     }
 
     public void setEndDate(LocalDate endDate) {
-        endDate = endDate;
+        this.endDate = endDate;
     }
 
     public Agent getAgent() {
@@ -80,5 +80,17 @@ public class Contract {
     @Override
     public int hashCode() {
         return (int) (id ^ (id >>> 32));
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Contract{");
+        sb.append("id=").append(id);
+        sb.append(", startDate=").append(startDate);
+        sb.append(", endDate=").append(endDate);
+        sb.append(", agent=").append(agent);
+        sb.append(", mission=").append(mission);
+        sb.append('}');
+        return sb.toString();
     }
 }
