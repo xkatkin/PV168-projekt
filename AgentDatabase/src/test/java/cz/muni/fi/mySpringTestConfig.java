@@ -48,7 +48,7 @@ public class mySpringTestConfig {
 
     @Bean
     public ContractManagerImpl contractManager() {
-        LocalDate date = LocalDate.of(2018, Month.MARCH, 15);
+        LocalDate date = LocalDate.of(2018, Month.JANUARY, 1);
         return new ContractManagerImpl(dataSource(), date);
     }
 

@@ -1,12 +1,14 @@
 package cz.muni.fi.contracts;
 
 
+import cz.muni.fi.agents.Agent;
 import cz.muni.fi.agents.AgentBuilder;
+import cz.muni.fi.agents.AgentManagerImpl;
 import cz.muni.fi.agents.Equipment;
+import cz.muni.fi.missions.Mission;
 import cz.muni.fi.missions.MissionBuilder;
+import cz.muni.fi.missions.MissionManagerImpl;
 import cz.muni.fi.mySpringTestConfig;
-import org.apache.commons.dbcp2.BasicDataSource;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -38,23 +40,30 @@ public class ContractManagerImplTest {
 
     @Autowired
     private ContractManagerImpl contractManager;
+    @Autowired
+    private AgentManagerImpl agentManager;
+    @Autowired
+    private MissionManagerImpl missionManager;
 
     private MissionBuilder testMission1Builder(){
-        return new MissionBuilder().target("Buckingham Palace")
+        return new MissionBuilder()
+                .target("Buckingham Palace")
                 .necesaryEquipmnt(Equipment.BADASSCAR)
-                .deadline(LocalDate.of(2018, Month.JUNE, 14));
+                .deadline(LocalDate.of(2021, Month.JUNE, 14));
     }
 
     private MissionBuilder testMission2Builder(){
-        return new MissionBuilder().target("Bratislava's UFO")
+        return new MissionBuilder()
+                .target("Bratislava's UFO")
                 .necesaryEquipmnt(Equipment.MOJITO)
                 .deadline(LocalDate.of(2027, Month.APRIL, 1));
     }
 
     private MissionBuilder testMission3Builder(){
-        return new MissionBuilder().target("FI at MUNI")
+        return new MissionBuilder()
+                .target("FI at MUNI")
                 .necesaryEquipmnt(Equipment.CHARMINGCOMPANION)
-                .deadline(LocalDate.of(2019, Month.MARCH, 24));
+                .deadline(LocalDate.of(2030, Month.MARCH, 24));
     }
 
     private AgentBuilder testAgent1Builder() {
@@ -83,7 +92,7 @@ public class ContractManagerImplTest {
         return new ContractBuilder()
                 .agent(testAgent2Builder().build())
                 .mission(testMission2Builder().build())
-                .endDate(LocalDate.of(2019, Month.MARCH, 19))
+                .endDate(LocalDate.of(2020, Month.MARCH, 19))
                 .startDate(LocalDate.of(2019, Month.SEPTEMBER, 2));
     }
 
@@ -170,7 +179,14 @@ public class ContractManagerImplTest {
 
     @Test
     public void simpleCreateContract() throws Exception {
-        Contract contract1 = testContract1().build();
+        Agent agent = testAgent1Builder().build();
+        Mission mission = testMission1Builder().build();
+        agentManager.createAgent(agent);
+        missionManager.createMission(mission);
+        Contract contract1 = testContract1()
+                .agent(agent)
+                .mission(mission)
+                .build();
         contractManager.createContract(contract1);
         assertFalse(contractManager.findAllContracts().isEmpty());
         assertTrue(contractManager.findAllContracts().contains(contract1));
@@ -178,24 +194,52 @@ public class ContractManagerImplTest {
 
     @Test
     public void complexCreateContract() throws Exception {
-        Contract contract1 = testContract1().build();
-        Contract contract2 = testContract2().build();
-        Contract contract3 = testContract3().build();
+        Agent agent1 = testAgent1Builder().build();
+        Agent agent2 = testAgent2Builder().build();
+        agentManager.createAgent(agent1);
+        agentManager.createAgent(agent2);
+
+        Mission mission1 = testMission1Builder().build();
+        Mission mission2 = testMission2Builder().build();
+        missionManager.createMission(mission1);
+        missionManager.createMission(mission2);
+
+        Contract contract1 = testContract1()
+                .agent(agent1)
+                .mission(mission1)
+                .build();
+        Contract contract2 = testContract2()
+                .agent(agent2)
+                .mission(mission2)
+                .build();
+
         contractManager.createContract(contract1);
         contractManager.createContract(contract2);
-        contractManager.createContract(contract3);
 
-        assertTrue(contractManager.findAllContracts().size() == 3);
+        assertTrue(contractManager.findAllContracts().size() == 2);
         assertTrue(contractManager.findAllContracts().contains(contract1));
         assertTrue(contractManager.findAllContracts().contains(contract2));
-        assertTrue(contractManager.findAllContracts().contains(contract3));
     }
 
     @Test
     public void simpleUpdateContract() throws Exception {
-        Contract contract = testContract1().build();
+        Agent agent = testAgent1Builder().build();
+        Mission mission = testMission1Builder().build();
+        agentManager.createAgent(agent);
+        missionManager.createMission(mission);
+        Contract contract = testContract1()
+                .agent(agent)
+                .mission(mission)
+                .build();
         contractManager.createContract(contract);
-        contract.setAgent(testAgent2Builder().build());
+
+        Agent agent2 = testAgent2Builder().build();
+        agentManager.createAgent(agent2);
+        assertTrue(agent2.getId() != 0);
+
+        contract.setAgent(agent2);
+        System.out.println(agent2);
+        System.out.println(contract.toString());
         contractManager.updateContract(contract);
 
         assertTrue(contractManager.findAllContracts().contains(contract));
@@ -209,15 +253,24 @@ public class ContractManagerImplTest {
         contractManager.updateContract(contract);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void updateNonExistingContract() throws Exception {
         Contract contract = testContract3().build();
         contractManager.updateContract(contract);
+        assertTrue(contractManager.findAllContracts().size() == 0);
     }
 
     @Test
     public void simplyDeleteContract() throws Exception {
-        Contract contract = testContract3().build();
+        Agent agent1 = testAgent1Builder().build();
+        agentManager.createAgent(agent1);
+
+        Mission mission1 = testMission1Builder().build();
+        missionManager.createMission(mission1);
+        Contract contract = testContract2()
+                .agent(agent1)
+                .mission(mission1)
+                .build();
         contractManager.createContract(contract);
         contractManager.deleteContract(contract.getId());
         assertTrue(contractManager.findAllContracts().size() == 0);
@@ -225,43 +278,80 @@ public class ContractManagerImplTest {
 
     @Test
     public void complexDeleteContract() throws Exception {
-        Contract contract1 = testContract1().build();
-        Contract contract2 = testContract2().build();
-        Contract contract3 = testContract3().build();
-        contractManager.createContract(contract1);
-        contractManager.createContract(contract2);
-        contractManager.createContract(contract3);
+        Agent agent1 = testAgent1Builder().build();
+        Agent agent2 = testAgent2Builder().build();
+        agentManager.createAgent(agent1);
+        agentManager.createAgent(agent2);
+
+        Mission mission1 = testMission1Builder().build();
+        Mission mission2 = testMission2Builder().build();
+        missionManager.createMission(mission1);
+        missionManager.createMission(mission2);
+
+        Contract contract1 = testContract1()
+                .agent(agent1)
+                .mission(mission1)
+                .build();
+        Contract contract2 = testContract2()
+                .agent(agent2)
+                .mission(mission2)
+                .build();
 
         contractManager.createContract(contract1);
+        contractManager.createContract(contract2);
         assertTrue(contractManager.findAllContracts().size() == 2);
+        contractManager.deleteContract(contract1.getId());
         assertFalse(contractManager.findAllContracts().contains(contract1));
 
         contractManager.deleteContract(contract2.getId());
-        contractManager.deleteContract(contract3.getId());
         assertTrue(contractManager.findAllContracts().isEmpty());
 
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void deleteNonExistingContract() throws Exception {
-        Contract contract = testContract3().build();
-        contractManager.deleteContract(contract.getId());
+        Agent agent1 = testAgent1Builder().build();
+        agentManager.createAgent(agent1);
+
+        Mission mission1 = testMission1Builder().build();
+        missionManager.createMission(mission1);
+        Contract contract1 = testContract2()
+                .agent(agent1)
+                .mission(mission1)
+                .build();
+        contractManager.createContract(contract1);
+        contractManager.deleteContract(testContract2().build().getId());
+        assertTrue(contractManager.findAllContracts().size() == 1);
     }
 
     @Test
     public void findAllContracts() throws Exception {
-        Contract contract1 = testContract1().build();
-        Contract contract2 = testContract2().build();
-        Contract contract3 = testContract3().build();
+        Agent agent1 = testAgent1Builder().build();
+        Agent agent2 = testAgent2Builder().build();
+        agentManager.createAgent(agent1);
+        agentManager.createAgent(agent2);
+
+        Mission mission1 = testMission1Builder().build();
+        Mission mission2 = testMission2Builder().build();
+        missionManager.createMission(mission1);
+        missionManager.createMission(mission2);
+
+        Contract contract1 = testContract1()
+                .agent(agent1)
+                .mission(mission1)
+                .build();
+        Contract contract2 = testContract2()
+                .agent(agent2)
+                .mission(mission2)
+                .build();
+
         contractManager.createContract(contract1);
         contractManager.createContract(contract2);
-        contractManager.createContract(contract3);
 
         List<Contract> contractList = contractManager.findAllContracts();
-        assertTrue(contractList.size() == 3);
+        assertTrue(contractList.size() == 2);
         assertTrue(contractList.contains(contract1));
         assertTrue(contractList.contains(contract2));
-        assertTrue(contractList.contains(contract3));
 
     }
 

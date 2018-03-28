@@ -1,7 +1,9 @@
 package cz.muni.fi.contracts;
 
 import cz.muni.fi.agents.AgentManagerImpl;
+import cz.muni.fi.missions.Mission;
 import cz.muni.fi.missions.MissionManagerImpl;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -48,9 +50,10 @@ public class ContractManagerImpl implements ContractManager{
                     missionManager.findMissionByid(rs.getLong("mission")));
 
     private boolean hasInvalidDates(Contract contract) {
-        return contract.getStartDate().isAfter(contract.getEndDate()) ||
+
+        return contract.getStartDate().isAfter(contract.getEndDate())  ||
                 contract.getEndDate().isBefore(now) ||
-                contract.getMission().getDeadline().isBefore(contract.getEndDate() );
+                contract.getMission().getDeadline().isBefore(contract.getEndDate());
     }
 
     private boolean inRange(LocalDate begin, LocalDate val, LocalDate end){
@@ -63,40 +66,57 @@ public class ContractManagerImpl implements ContractManager{
         //situations, when dates are in conflict (4 cases solves all options)
         for(Contract agentsContract : agentsContracts) {
               //oldStart newEnd oldEnd
-              if (inRange(agentsContract.getStartDate(), contract.getEndDate(), agentsContract.getEndDate())){
+            if (inRange(agentsContract.getStartDate(), contract.getEndDate(), agentsContract.getEndDate())){
                   return false;
-              }
+            }
               //oldStart newStart oldEnd
-              if (inRange(agentsContract.getStartDate(), contract.getStartDate(), agentsContract.getEndDate())){
-                  return false;
-              }
+            if (inRange(agentsContract.getStartDate(), contract.getStartDate(), agentsContract.getEndDate())){
+                return false;
+            }
               //newStart oldEnd newEnd
-              if (inRange(contract.getStartDate(), agentsContract.getEndDate(), contract.getEndDate())){
+            if (inRange(contract.getStartDate(), agentsContract.getEndDate(), contract.getEndDate())){
                 return false;
-              }
+            }
               //newStart oldStart newEnd
-              if (inRange(contract.getStartDate(), agentsContract.getStartDate(), contract.getEndDate())){
+            if (inRange(contract.getStartDate(), agentsContract.getStartDate(), contract.getEndDate())){
                 return false;
-              }
+            }
         }
-        return agentManager.findAgentById(contract.getAgent().getId()) != null;
+        return contract.getAgent().getId() == 0;
     }
 
 
     private boolean hasInvalidMission(Contract contract) {
-        return findContractByMissionId(contract.getMission().getId()) != null ||
-                missionManager.findMissionByid(contract.getMission().getId()) == null;
+        try {
+            findContractByMissionId(contract.getMission().getId());
+        } catch (EmptyResultDataAccessException e) {
+            return contract.getMission().getId() == 0;
+        }
+        return true;
+    }
+
+    private void checkContract(Contract contract) {
+        System.out.println(contract.toString());
+        if(hasNulls(contract)) {
+            throw new IllegalArgumentException("Cannot create contract with nulls");
+        }
+        if(contract.getId() != 0) {
+            throw new IllegalArgumentException("Contract already exists");
+        }
+        if(hasInvalidAgent(contract)) {
+            throw new IllegalArgumentException("Invalid agent data");
+        }
+        if(hasInvalidDates(contract)) {
+            throw new IllegalArgumentException("Invalid date data");
+        }
+        if(hasInvalidMission(contract)) {
+            throw new IllegalArgumentException("Invalid mission data");
+        }
     }
 
     @Override
     public void createContract(Contract contract) {
-        if(hasNulls(contract) ||
-                contract.getId() != 0 ||
-                hasInvalidDates(contract) ||
-                hasInvalidAgent(contract) ||
-                hasInvalidMission(contract)) {
-            throw new IllegalArgumentException("Cannot create contract");
-        }
+        checkContract(contract);
 
         SimpleJdbcInsert insertContract = new SimpleJdbcInsert(jdbc)
                 .withTableName("contracts").usingGeneratedKeyColumns("id");
@@ -116,11 +136,12 @@ public class ContractManagerImpl implements ContractManager{
         if(hasNulls(contract)) {
             throw new IllegalArgumentException("Cannot update with null parameters");
         }
-        jdbc.update("UPDATE missions set startDate=?,endDate=?,agent=?,mission=? where id=?",
-                contract.getStartDate(),
-                contract.getEndDate(),
+        jdbc.update("UPDATE contracts SET startDate=?,endDate=?,agent=?,mission=? where id=?",
+                dateFormatter.format(contract.getStartDate()),
+                dateFormatter.format(contract.getEndDate()),
                 contract.getAgent().getId(),
-                contract.getMission().getId());
+                contract.getMission().getId(),
+                contract.getId());
     }
 
     @Override
