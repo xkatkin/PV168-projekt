@@ -37,7 +37,7 @@ public class AgentManagerImpl implements AgentManager {
         if(hasNulls(agent)) {
             throw new IllegalArgumentException("Cannot create agent with null parameters");
         }
-        if( agent.getId() != 0) {
+        if( agent.getId() != 0L) {
             throw new IllegalArgumentException("Agent already exists within database");
         }
 

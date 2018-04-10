@@ -7,15 +7,17 @@
 <table border="1">
     <thead>
     <tr>
-        <th>název</th>
-        <th>autor</th>
+        <th>Target</th>
+        <th>Equipment</th>
+        <th>Deadline</th>
     </tr>
     </thead>
-    <c:forEach items="${books}" var="book">
+    <c:forEach items="${mission}" var="mission">
         <tr>
-            <td><c:out value="${book.name}"/></td>
-            <td><c:out value="${book.author}"/></td>
-            <td><form method="post" action="${pageContext.request.contextPath}/books/delete?id=${book.id}"
+            <td><c:out value="${mission.target}"/></td>
+            <td><c:out value="${mission.necessaryEquipment}"/></td>
+            <td><c:out value="${mission.deadline}"/></td>
+            <td><form method="post" action="${pageContext.request.contextPath}/mission/delete?id=${mission.id}"
                       style="margin-bottom: 0;"><input type="submit" value="Smazat"></form></td>
         </tr>
     </c:forEach>
@@ -27,15 +29,27 @@
         <c:out value="${chyba}"/>
     </div>
 </c:if>
-<form action="${pageContext.request.contextPath}/books/add" method="post">
+<form action="${pageContext.request.contextPath}/missions/add" method="post">
     <table>
         <tr>
-            <th>název knihy:</th>
-            <td><input type="text" name="name" value="<c:out value='${param.name}'/>"/></td>
+            <th>target:</th>
+            <td><input type="text" name="target" value="<c:out value='${param.target}'/>"/></td>
         </tr>
         <tr>
-            <th>autor:</th>
-            <td><input type="text" name="author" value="<c:out value='${param.author}'/>"/></td>
+            <th>equipment:</th>
+            <td><input type="text" name="necessaryEquipment" value="<c:out value='${param.necessaryEquipment}'/>"/></td>
+        </tr>
+        <tr>
+            <th>day:</th>
+            <td><input type="text" name="day" value="<c:out value='${param.day}'/>"/></td>
+        </tr>
+        <tr>
+            <th>month:</th>
+            <td><input type="text" name="month" value="<c:out value='${param.month}'/>"/></td>
+        </tr>
+        <tr>
+            <th>year:</th>
+            <td><input type="text" name="year" value="<c:out value='${param.year}'/>"/></td>
         </tr>
     </table>
     <input type="Submit" value="Zadat" />

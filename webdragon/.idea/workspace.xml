@@ -20,21 +20,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="agentList.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/_web1/src/main/webapp/agentList.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="558">
-              <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="AgentsServlet.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/_web1/src/main/java/cz/muni/fi/pv168/web/AgentsServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="57" column="39" lean-forward="false" selection-start-line="57" selection-start-column="39" selection-end-line="57" selection-end-column="39" />
+            <state relative-caret-position="522">
+              <caret line="67" column="18" lean-forward="false" selection-start-line="67" selection-start-column="18" selection-end-line="67" selection-end-column="18" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -42,37 +32,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Agent.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AgentDatabase/src/main/java/cz/muni/fi/agents/Agent.java">
+      <file leaf-file-name="MissionsServlet.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/_web1/src/main/java/cz/muni/fi/pv168/web/MissionsServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AgentManagerImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AgentDatabase/src/main/java/cz/muni/fi/agents/AgentManagerImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="738">
-              <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+            <state relative-caret-position="1476">
+              <caret line="115" column="1" lean-forward="false" selection-start-line="115" selection-start-column="1" selection-end-line="115" selection-end-column="1" />
               <folding>
-                <marker date="1523340654102" expanded="true" signature="2136:2200" ph="UPDATE agent... " />
-                <marker date="1523340654102" expanded="true" signature="2438:2467" ph="DELETE FROM " />
-                <marker date="1523340654102" expanded="true" signature="2593:2624" ph="SELECT * FRO... agents" />
-                <marker date="1523340654102" expanded="true" signature="2889:2909" ph="SELECT * FRO... agents" />
+                <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="stranka.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/_web1/src/main/webapp/stranka.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -83,6 +50,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Jsp File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -100,8 +68,11 @@
         <option value="$PROJECT_DIR$/_web1/src/main/java/cz/muni/fi/pv168/web/SpringConfig.java" />
         <option value="$PROJECT_DIR$/_web1/src/main/java/cz/muni/fi/pv168/web/StartListener.java" />
         <option value="$PROJECT_DIR$/_web1/src/main/java/cz/muni/fi/pv168/web/Servlet.java" />
-        <option value="$PROJECT_DIR$/_web1/src/main/java/cz/muni/fi/pv168/web/AgentsServlet.java" />
         <option value="$PROJECT_DIR$/_web1/src/main/webapp/agentList.jsp" />
+        <option value="$PROJECT_DIR$/_web1/src/main/java/cz/muni/fi/pv168/web/MissionsServlet.java" />
+        <option value="$PROJECT_DIR$/_web1/src/main/webapp/missionList.jsp" />
+        <option value="$PROJECT_DIR$/AgentDatabase/src/main/java/cz/muni/fi/agents/AgentManagerImpl.java" />
+        <option value="$PROJECT_DIR$/_web1/src/main/java/cz/muni/fi/pv168/web/AgentsServlet.java" />
       </list>
     </option>
   </component>
@@ -125,11 +96,11 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="4">
-    <option name="x" value="960" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="338" />
     <option name="y" value="27" />
-    <option name="width" value="960" />
-    <option name="height" value="1173" />
+    <option name="width" value="950" />
+    <option name="height" value="1166" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -146,6 +117,10 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="AndroidView" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -305,16 +280,12 @@
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/samo" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -503,14 +474,15 @@
       <workItem from="1523342022533" duration="2895000" />
       <workItem from="1523344955198" duration="5000" />
       <workItem from="1523344990873" duration="8000" />
+      <workItem from="1523383676420" duration="495000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3852000" />
+    <option name="totallyTimeSpent" value="4347000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="960" y="27" width="960" height="1173" extended-state="4" />
+    <frame x="0" y="26" width="1920" height="1174" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -527,15 +499,16 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24651162" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32960895" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3293023" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30104166" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15052083" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -544,7 +517,6 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24651162" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32976446" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -581,10 +553,57 @@
         <state relative-caret-position="738">
           <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
           <folding>
-            <marker date="1523340654102" expanded="true" signature="2136:2200" ph="UPDATE agent... " />
-            <marker date="1523340654102" expanded="true" signature="2438:2467" ph="DELETE FROM " />
-            <marker date="1523340654102" expanded="true" signature="2593:2624" ph="SELECT * FRO... agents" />
-            <marker date="1523340654102" expanded="true" signature="2889:2909" ph="SELECT * FRO... agents" />
+            <marker date="1523383857171" expanded="true" signature="2137:2201" ph="UPDATE agent... " />
+            <marker date="1523383857171" expanded="true" signature="2439:2468" ph="DELETE FROM " />
+            <marker date="1523383857171" expanded="true" signature="2594:2625" ph="SELECT * FRO... agents" />
+            <marker date="1523383857171" expanded="true" signature="2890:2910" ph="SELECT * FRO... agents" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_web1/src/main/webapp/stranka.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_web1/src/main/java/cz/muni/fi/pv168/web/AgentsServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1026">
+          <caret line="57" column="39" lean-forward="false" selection-start-line="57" selection-start-column="39" selection-end-line="57" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_web1/src/main/webapp/agentList.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="558">
+          <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AgentDatabase/src/main/java/cz/muni/fi/agents/Agent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AgentDatabase/src/main/java/cz/muni/fi/agents/AgentManagerImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="738">
+          <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+          <folding>
+            <marker date="1523383857171" expanded="true" signature="2137:2201" ph="UPDATE agent... " />
+            <marker date="1523383857171" expanded="true" signature="2439:2468" ph="DELETE FROM " />
+            <marker date="1523383857171" expanded="true" signature="2594:2625" ph="SELECT * FRO... agents" />
+            <marker date="1523383857171" expanded="true" signature="2890:2910" ph="SELECT * FRO... agents" />
           </folding>
         </state>
       </provider>
@@ -628,10 +647,10 @@
         <state relative-caret-position="738">
           <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
           <folding>
-            <marker date="1523340654102" expanded="true" signature="2136:2200" ph="UPDATE agent... " />
-            <marker date="1523340654102" expanded="true" signature="2438:2467" ph="DELETE FROM " />
-            <marker date="1523340654102" expanded="true" signature="2593:2624" ph="SELECT * FRO... agents" />
-            <marker date="1523340654102" expanded="true" signature="2889:2909" ph="SELECT * FRO... agents" />
+            <marker date="1523383857171" expanded="true" signature="2137:2201" ph="UPDATE agent... " />
+            <marker date="1523383857171" expanded="true" signature="2439:2468" ph="DELETE FROM " />
+            <marker date="1523383857171" expanded="true" signature="2594:2625" ph="SELECT * FRO... agents" />
+            <marker date="1523383857171" expanded="true" signature="2890:2910" ph="SELECT * FRO... agents" />
           </folding>
         </state>
       </provider>
@@ -666,7 +685,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="7" column="20" lean-forward="false" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -726,7 +747,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
           <caret line="20" column="8" lean-forward="false" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="8" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -853,13 +876,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_web1/src/main/webapp/missionList.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="43" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/_web1/src/main/webapp/index.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
@@ -894,27 +910,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AgentDatabase/src/main/java/cz/muni/fi/agents/Agent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AgentDatabase/src/main/java/cz/muni/fi/agents/AgentManagerImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="738">
-          <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
-          <folding>
-            <marker date="1523340654102" expanded="true" signature="2136:2200" ph="UPDATE agent... " />
-            <marker date="1523340654102" expanded="true" signature="2438:2467" ph="DELETE FROM " />
-            <marker date="1523340654102" expanded="true" signature="2593:2624" ph="SELECT * FRO... agents" />
-            <marker date="1523340654102" expanded="true" signature="2889:2909" ph="SELECT * FRO... agents" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/_web1/src/main/webapp/stranka.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -923,10 +918,49 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/_web1/src/main/webapp/missionList.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1026">
+          <caret line="57" column="7" lean-forward="false" selection-start-line="57" selection-start-column="7" selection-end-line="57" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AgentDatabase/src/main/java/cz/muni/fi/agents/AgentManagerImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="39" column="31" lean-forward="false" selection-start-line="39" selection-start-column="31" selection-end-line="39" selection-end-column="31" />
+          <folding>
+            <marker date="1523383857171" expanded="true" signature="2137:2201" ph="UPDATE agent... " />
+            <marker date="1523383857171" expanded="true" signature="2439:2468" ph="DELETE FROM " />
+            <marker date="1523383857171" expanded="true" signature="2594:2625" ph="SELECT * FRO... agents" />
+            <marker date="1523383857171" expanded="true" signature="2890:2910" ph="SELECT * FRO... agents" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AgentDatabase/src/main/java/cz/muni/fi/agents/Agent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_web1/src/main/java/cz/muni/fi/pv168/web/MissionsServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1476">
+          <caret line="115" column="1" lean-forward="false" selection-start-line="115" selection-start-column="1" selection-end-line="115" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/_web1/src/main/java/cz/muni/fi/pv168/web/AgentsServlet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="57" column="39" lean-forward="false" selection-start-line="57" selection-start-column="39" selection-end-line="57" selection-end-column="39" />
+        <state relative-caret-position="522">
+          <caret line="67" column="18" lean-forward="false" selection-start-line="67" selection-start-column="18" selection-end-line="67" selection-end-column="18" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
