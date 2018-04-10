@@ -1,6 +1,9 @@
 
 package cz.muni.fi.pv168.web;
 
+import cz.muni.fi.agents.Agent;
+import cz.muni.fi.agents.AgentManagerImpl;
+import cz.muni.fi.agents.Equipment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,17 +20,17 @@ import java.util.Enumeration;
 /**
  * Servlet for managing books.
  */
-@WebServlet(BooksServlet.URL_MAPPING + "/*")
-public class BooksServlet extends HttpServlet {
+@WebServlet(AgentsServlet.URL_MAPPING + "/*")
+public class AgentsServlet extends HttpServlet {
 
-    private static final String LIST_JSP = "/missionList.jsp";
-    public static final String URL_MAPPING = "/books";
+    private static final String LIST_JSP = "/agentList.jsp";
+    public static final String URL_MAPPING = "/agents";
 
-    private final static Logger log = LoggerFactory.getLogger(BooksServlet.class);
+    private final static Logger log = LoggerFactory.getLogger(AgentServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        showBooksList(request, response);
+        showAgentsList(request, response);
     }
 
     @Override
@@ -39,42 +42,40 @@ public class BooksServlet extends HttpServlet {
         switch (action) {
             case "/add":
                 //načtení POST parametrů z formuláře
-                String name = request.getParameter("name");
-                String author = request.getParameter("author");
+                String fullName = request.getParameter("fullName");
+                String secretName = request.getParameter("secretName");
+                String equipment = request.getParameter("equipment");
                 //kontrola vyplnění hodnot
-                if (name == null || name.length() == 0 || author == null || author.length() == 0) {
+                if (fullName == null || fullName.length() == 0 || secretName == null || secretName.length() == 0) {
                     request.setAttribute("chyba", "Je nutné vyplnit všechny hodnoty !");
-                    showBooksList(request, response);
+                    showAgentsList(request, response);
                     return;
                 }
                 //zpracování dat - vytvoření záznamu v databázi
                 try {
-                    Book book = new Book(null, name, author);
-                    getBookManager().createBook(book);
-                    log.debug("created {}",book);
+                    Agent agent = new Agent(null, fullName, secretName, Equipment.valueOf(equipment))
+                    getAgentManager().createAgent(agent);
+                    log.debug("created {}",agent);
                     //redirect-after-POST je ochrana před vícenásobným odesláním formuláře
                     response.sendRedirect(request.getContextPath()+URL_MAPPING);
                     return;
-                } catch (BookException e) {
-                    log.error("Cannot add book", e);
+                } catch (IllegalArgumentException e) {
+                    log.error("Cannot add agent", e);
                     response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
                     return;
                 }
             case "/delete":
                 try {
                     Long id = Long.valueOf(request.getParameter("id"));
-                    getBookManager().deleteBook(id);
+                    getAgentManager().deleteAgent(id);
                     log.debug("deleted book {}",id);
                     response.sendRedirect(request.getContextPath()+URL_MAPPING);
                     return;
-                } catch (BookException e) {
-                    log.error("Cannot delete book", e);
+                } catch (IllegalArgumentException e) {
+                    log.error("Cannot delete agent", e);
                     response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
                     return;
                 }
-            case "/update":
-                //TODO
-                return;
             default:
                 log.error("Unknown action " + action);
                 response.sendError(HttpServletResponse.SC_NOT_FOUND, "Unknown action " + action);
@@ -86,19 +87,19 @@ public class BooksServlet extends HttpServlet {
      *
      * @return BookManager instance
      */
-    private BookManager getBookManager() {
-        return (BookManager) getServletContext().getAttribute("bookManager");
+    private AgentManagerImpl getAgentManager() {
+        return (AgentManagerImpl) getServletContext().getAttribute("agentManager");
     }
 
     /**
      * Stores the list of books to request attribute "books" and forwards to the JSP to display it.
      */
-    private void showBooksList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void showAgentsList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            request.setAttribute("books", getBookManager().getAllBooks());
+            request.setAttribute("agents", getAgentManager().findAllAgents());
             request.getRequestDispatcher(LIST_JSP).forward(request, response);
-        } catch (BookException e) {
-            log.error("Cannot show books", e);
+        } catch (IllegalArgumentException e) {
+            log.error("Cannot show agents", e);
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
