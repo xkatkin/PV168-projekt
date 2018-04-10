@@ -26,7 +26,7 @@ public class AgentsServlet extends HttpServlet {
     private static final String LIST_JSP = "/agentList.jsp";
     public static final String URL_MAPPING = "/agents";
 
-    private final static Logger log = LoggerFactory.getLogger(AgentServlet.class);
+    private final static Logger log = LoggerFactory.getLogger(AgentsServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -46,20 +46,26 @@ public class AgentsServlet extends HttpServlet {
                 String secretName = request.getParameter("secretName");
                 String equipment = request.getParameter("equipment");
                 //kontrola vyplnění hodnot
-                if (fullName == null || fullName.length() == 0 || secretName == null || secretName.length() == 0) {
+                if (fullName == null || fullName.length() == 0 ||
+                        secretName == null || secretName.length() == 0 ||
+                        equipment == null || equipment.length() == 0) {
                     request.setAttribute("chyba", "Je nutné vyplnit všechny hodnoty !");
                     showAgentsList(request, response);
                     return;
                 }
                 //zpracování dat - vytvoření záznamu v databázi
                 try {
-                    Agent agent = new Agent(null, fullName, secretName, Equipment.valueOf(equipment))
+                    Agent agent = new Agent(0L, fullName, secretName, Equipment.valueOf(equipment));
                     getAgentManager().createAgent(agent);
                     log.debug("created {}",agent);
                     //redirect-after-POST je ochrana před vícenásobným odesláním formuláře
                     response.sendRedirect(request.getContextPath()+URL_MAPPING);
                     return;
                 } catch (IllegalArgumentException e) {
+                    log.error("Cannot add agent", e);
+                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
+                    return;
+                } catch (NullPointerException e) {
                     log.error("Cannot add agent", e);
                     response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
                     return;
@@ -106,4 +112,3 @@ public class AgentsServlet extends HttpServlet {
 
 }
 
-}
