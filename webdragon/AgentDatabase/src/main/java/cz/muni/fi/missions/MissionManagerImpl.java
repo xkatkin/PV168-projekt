@@ -34,7 +34,7 @@ public class MissionManagerImpl implements MissionManager{
         return (mission == null ||
                 mission.getTarget() == null ||
                 mission.getDeadline() == null ||
-                mission.getNecesarryEquipment() == null);
+                mission.getNecessaryEquipment() == null);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class MissionManagerImpl implements MissionManager{
 
         SqlParameterSource parameters = new MapSqlParameterSource()
                 .addValue("target", mission.getTarget())
-                .addValue("necessaryEquipment", mission.getNecesarryEquipment().name())
+                .addValue("necessaryEquipment", mission.getNecessaryEquipment())
                 .addValue("deadline", dateFormatter.format(mission.getDeadline()));
 
         Number id = insertMission.executeAndReturnKey(parameters);
@@ -61,7 +61,7 @@ public class MissionManagerImpl implements MissionManager{
         }
         boolean b = jdbc.update("UPDATE missions set target=?,necessaryEquipment=?,deadline=? where id=?",
              mission.getTarget(),
-             mission.getNecesarryEquipment().name(),
+             mission.getNecessaryEquipment().name(),
              dateFormatter.format(mission.getDeadline()),
              mission.getId()) == 1;
 

@@ -58,7 +58,7 @@ public class MissionsServlet extends HttpServlet {
                 }
                 //zpracování dat - vytvoření záznamu v databázi
                 try {
-                    Mission mission = new Mission(0L, target, Equipment.valueOf(equipment.toUpperCase()), LocalDate.of(Integer.parseInt(year),
+                    Mission mission = new Mission(0L, target, Equipment.valueOf(equipment), LocalDate.of(Integer.parseInt(year),
                             Integer.parseInt(month), Integer.parseInt(day)));
                     getMissionManager().createMission(mission);
                     log.debug("created {}",mission);
@@ -108,7 +108,7 @@ public class MissionsServlet extends HttpServlet {
             request.setAttribute("missions", getMissionManager().findAllMissions());
             request.getRequestDispatcher(LIST_JSP).forward(request, response);
         } catch (IllegalArgumentException e) {
-            log.error("Cannot show books", e);
+            log.error("Cannot show Missions", e);
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }

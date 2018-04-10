@@ -16,14 +16,14 @@ public class Mission {
     public Mission() {
     }
 
-    public Mission(Long id, String target, Equipment necesarryEquipment, LocalDate deadline) {
+    public Mission(Long id, String target, Equipment necessaryEquipment, LocalDate deadline) {
         this.id = id;
         this.target = target;
-        this.necessaryEquipment = necesarryEquipment;
+        this.necessaryEquipment = necessaryEquipment;
         this.deadline = deadline;
     }
 
-    public Equipment getNecesarryEquipment() {
+    public Equipment getNecessaryEquipment() {
         return necessaryEquipment;
     }
 

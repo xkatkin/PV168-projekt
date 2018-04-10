@@ -12,18 +12,18 @@
         <th>Deadline</th>
     </tr>
     </thead>
-    <c:forEach items="${mission}" var="mission">
+    <c:forEach items="${missions}" var="mission">
         <tr>
             <td><c:out value="${mission.target}"/></td>
             <td><c:out value="${mission.necessaryEquipment}"/></td>
             <td><c:out value="${mission.deadline}"/></td>
-            <td><form method="post" action="${pageContext.request.contextPath}/mission/delete?id=${mission.id}"
-                      style="margin-bottom: 0;"><input type="submit" value="Smazat"></form></td>
+            <td><form method="post" action="${pageContext.request.contextPath}/missions/delete?id=${mission.id}"
+                      style="margin-bottom: 0;"><input type="submit" value="Delete"></form></td>
         </tr>
     </c:forEach>
 </table>
 
-<h2>Zadejte knihu</h2>
+<h2>Enter new mission</h2>
 <c:if test="${not empty chyba}">
     <div style="border: solid 1px red; background-color: yellow; padding: 10px">
         <c:out value="${chyba}"/>
@@ -52,7 +52,7 @@
             <td><input type="text" name="year" value="<c:out value='${param.year}'/>"/></td>
         </tr>
     </table>
-    <input type="Submit" value="Zadat" />
+    <input type="Submit" value="Add" />
 </form>
 </body>
 </html>
