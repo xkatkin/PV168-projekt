@@ -53,6 +53,17 @@ public class AgentsServlet extends HttpServlet {
                     showAgentsList(request, response);
                     return;
                 }
+
+                //equipment validation
+                Equipment equip;
+                try {
+                    equip= Equipment.valueOf(equipment.toUpperCase());
+                } catch (IllegalArgumentException e){
+                    request.setAttribute("chyba", "Enter valid equipment! (KNIFE, GUN, MOJITO, SNIPERRIFLE, BADASSCAR, CHARMINGCOMPANION)");
+                    showAgentsList(request, response);
+                    return;
+                }
+
                 //zpracování dat - vytvoření záznamu v databázi
                 try {
                     Agent agent = new Agent(0L, fullName, secretName, Equipment.valueOf(equipment.toUpperCase()));

@@ -56,6 +56,17 @@ public class MissionsServlet extends HttpServlet {
                     showMissionsList(request, response);
                     return;
                 }
+
+                //equipment validation
+                Equipment equip;
+                try {
+                    equip= Equipment.valueOf(equipment.toUpperCase());
+                } catch (IllegalArgumentException e){
+                    request.setAttribute("chyba", "Enter valid equipment! (KNIFE, GUN, MOJITO, SNIPERRIFLE, BADASSCAR, CHARMINGCOMPANION)");
+                    showMissionsList(request, response);
+                    return;
+                }
+
                 //date validation
                 LocalDate date;
                 try {
@@ -65,9 +76,10 @@ public class MissionsServlet extends HttpServlet {
                     showMissionsList(request, response);
                     return;
                 }
+
                 //zpracování dat - vytvoření záznamu v databázi
                 try {
-                    Mission mission = new Mission(0L, target, Equipment.valueOf(equipment.toUpperCase()), date);
+                    Mission mission = new Mission(0L, target, equip, date);
                     getMissionManager().createMission(mission);
                     log.debug("created {}",mission);
                     //redirect-after-POST je ochrana před vícenásobným odesláním formuláře
