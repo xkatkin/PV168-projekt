@@ -66,7 +66,7 @@ public class AgentsServlet extends HttpServlet {
 
                 //zpracování dat - vytvoření záznamu v databázi
                 try {
-                    Agent agent = new Agent(0L, fullName, secretName, Equipment.valueOf(equipment.toUpperCase()));
+                    Agent agent = new Agent(0L, fullName, secretName, equip);
                     getAgentManager().createAgent(agent);
                     log.debug("created {}",agent);
                     //redirect-after-POST je ochrana před vícenásobným odesláním formuláře
