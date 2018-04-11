@@ -56,10 +56,18 @@ public class MissionsServlet extends HttpServlet {
                     showMissionsList(request, response);
                     return;
                 }
+                //date validation
+                LocalDate date;
+                try {
+                    date = LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
+                } catch (java.time.DateTimeException e){
+                    request.setAttribute("chyba", "Enter valid date!");
+                    showMissionsList(request, response);
+                    return;
+                }
                 //zpracování dat - vytvoření záznamu v databázi
                 try {
-                    Mission mission = new Mission(0L, target, Equipment.valueOf(equipment), LocalDate.of(Integer.parseInt(year),
-                            Integer.parseInt(month), Integer.parseInt(day)));
+                    Mission mission = new Mission(0L, target, Equipment.valueOf(equipment.toUpperCase()), date);
                     getMissionManager().createMission(mission);
                     log.debug("created {}",mission);
                     //redirect-after-POST je ochrana před vícenásobným odesláním formuláře
