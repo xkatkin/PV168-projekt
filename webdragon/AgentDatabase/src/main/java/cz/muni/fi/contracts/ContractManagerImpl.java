@@ -3,6 +3,8 @@ package cz.muni.fi.contracts;
 import cz.muni.fi.agents.AgentManagerImpl;
 import cz.muni.fi.missions.Mission;
 import cz.muni.fi.missions.MissionManagerImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -19,6 +21,7 @@ import java.util.List;
  * @author Slavomir Katkin
  */
 public class ContractManagerImpl implements ContractManager{
+    private final static Logger log = LoggerFactory.getLogger(ContractManagerImpl.class);
     private JdbcTemplate jdbc;
     private LocalDate now;
 
@@ -67,7 +70,7 @@ public class ContractManagerImpl implements ContractManager{
         for(Contract agentsContract : agentsContracts) {
               //oldStart newEnd oldEnd
             if (inRange(agentsContract.getStartDate(), contract.getEndDate(), agentsContract.getEndDate())){
-                  return false;
+                return false;
             }
               //oldStart newStart oldEnd
             if (inRange(agentsContract.getStartDate(), contract.getStartDate(), agentsContract.getEndDate())){
@@ -129,11 +132,13 @@ public class ContractManagerImpl implements ContractManager{
 
         Number id = insertContract.executeAndReturnKey(parameters);
         contract.setId(id.longValue());
+        log.debug("Creating contract {}", contract);
     }
 
     @Override
     public void updateContract(Contract contract) {
         if(hasNulls(contract)) {
+            log.error("Update contract {} with null arguments", contract);
             throw new IllegalArgumentException("Cannot update with null parameters");
         }
         jdbc.update("UPDATE contracts SET startDate=?,endDate=?,agent=?,mission=? where id=?",
@@ -142,30 +147,36 @@ public class ContractManagerImpl implements ContractManager{
                 contract.getAgent().getId(),
                 contract.getMission().getId(),
                 contract.getId());
+        log.debug("Updated contract {}", contract);
     }
 
     @Override
     public boolean deleteContract(Long contractId) {
+        log.debug("Deleted contract with ID {}", contractId);
         return jdbc.update("DELETE FROM contracts WHERE id=?", contractId) == 1;
     }
 
     @Override
     public Contract findContractById(Long contractId) {
+        log.debug("Finding contracts with ID {}", contractId);
         return jdbc.queryForObject("SELECT * FROM contracts WHERE id=?", contractMapper, contractId);
     }
 
     @Override
     public List<Contract> findContractsByAgentId(Long agentId) {
+        log.debug("Finding all contracts with agent ID {}", agentId);
         return jdbc.query("SELECT * FROM contracts WHERE agent=?", contractMapper, agentId);
     }
 
     @Override
     public Contract findContractByMissionId(Long missionId) {
+        log.debug("Finding all contracts with mission ID {}", missionId);
         return jdbc.queryForObject("SELECT * FROM contracts WHERE mission=?", contractMapper, missionId);
     }
 
     @Override
     public List<Contract> findAllContracts() {
+        log.debug("Finding all contracts");
         return jdbc.query("SELECT * FROM contracts", contractMapper);
     }
 }
