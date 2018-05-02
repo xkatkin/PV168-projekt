@@ -1,5 +1,0 @@
-# myconf.properties
-jdbc.driver=org.apache.derby.jdbc.EmbeddedDriver
-jdbc.url=jdbc:derby:memory:books;create=true
-jdbc.user=m
-jdbc.password=secretagentsrule

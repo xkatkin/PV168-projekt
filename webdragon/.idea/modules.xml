@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/_web1/1.iml" filepath="$PROJECT_DIR$/_web1/1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AgentDabSwing/AgentDabSwing.iml" filepath="$PROJECT_DIR$/AgentDabSwing/AgentDabSwing.iml" />
       <module fileurl="file://$PROJECT_DIR$/AgentDatabase/prvyprojekt.iml" filepath="$PROJECT_DIR$/AgentDatabase/prvyprojekt.iml" />
       <module fileurl="file://$PROJECT_DIR$/webdragon.iml" filepath="$PROJECT_DIR$/webdragon.iml" />
     </modules>
