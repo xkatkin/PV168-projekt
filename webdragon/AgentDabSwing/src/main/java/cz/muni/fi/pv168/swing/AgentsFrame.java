@@ -28,6 +28,7 @@ public class AgentsFrame {
     private JComboBox filterBox;
     private JPanel filterPanel;
 
+    long counter;
     public JPanel getMainPanel() {
         return mainPanel;
     }
@@ -38,13 +39,14 @@ public class AgentsFrame {
 
     public AgentsFrame() {
         AgentsTableModel model = (AgentsTableModel) agentTable.getModel();
+        counter = 0L;
 
         addAgentButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 AgentsTableModel model = (AgentsTableModel) agentTable.getModel();
                 Agent agent = new Agent(
-                        0L,
+                        ++counter,
                         createFullName.getText(),
                         createSecretName.getText(),
                         (Equipment)createEquipment.getSelectedItem());
