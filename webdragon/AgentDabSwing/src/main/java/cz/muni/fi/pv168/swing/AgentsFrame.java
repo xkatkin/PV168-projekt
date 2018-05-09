@@ -56,6 +56,7 @@ public class AgentsFrame {
             public void actionPerformed(ActionEvent e) {
                 AgentsTableModel model = (AgentsTableModel) agentTable.getModel();
                 model.removeAgent(agentTable.getSelectedRows());
+                agentTable.clearSelection();
 
             }
         });
