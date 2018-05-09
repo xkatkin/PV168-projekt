@@ -11,11 +11,11 @@ import java.util.List;
 public class AgentsTableModel extends AbstractTableModel {
 
     private AgentManagerImpl agentManager = new AgentManagerImpl(new Data().dataSource());
-    private List<Agent> agents = new ArrayList<Agent>();
+
 
     @Override
     public int getRowCount() {
-        return agents.size();
+        return agentManager.findAllAgents().size();
     }
 
     @Override
@@ -25,7 +25,7 @@ public class AgentsTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Agent agent = agents.get(rowIndex);
+        Agent agent = getAgent(rowIndex);
         switch (columnIndex) {
             case 0:
                 return agent.getId();
@@ -72,27 +72,30 @@ public class AgentsTableModel extends AbstractTableModel {
     }
 
     public Agent getAgent(int row) {
-        return agents.get(row);
+        return agentManager.findAllAgents().get(row);
     }
 
     public void addAgent(Agent agent) {
         agentManager.createAgent(agent);
-        agents.add(agent);
-        fireTableRowsInserted(agents.size() - 1, agents.size() - 1);
+        fireTableRowsInserted(getRowCount() - 1, getRowCount() - 1);
     }
 
     public void removeAgent(int[] rows) {
-        for(int i = 0; i < rows.length; i++) {
-            agentManager.deleteAgent(agents.get(i).getId());
-            agents.remove(rows[i] - i);
-            fireTableRowsDeleted(i,i);
+        List<Long> toDelete = new ArrayList<>();
+        for(int i : rows) {
+            toDelete.add(getAgent(i).getId());
         }
+        for(long j : toDelete) {
+            agentManager.deleteAgent(j);
+        }
+
+        fireTableDataChanged();
 
     }
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        Agent agent = agents.get(rowIndex);
+        Agent agent = getAgent(rowIndex);
         switch (columnIndex) {
             case 0:
                 agent.setId((Long) aValue);
