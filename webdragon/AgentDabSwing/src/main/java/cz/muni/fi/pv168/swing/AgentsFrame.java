@@ -1,18 +1,19 @@
 package cz.muni.fi.pv168.swing;
 
+import javax.sql.DataSource;
 import javax.swing.*;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import cz.muni.fi.agents.Agent;
+import cz.muni.fi.agents.AgentManagerImpl;
 import cz.muni.fi.agents.Equipment;
-import cz.muni.fi.pv168.swing.AgentsTableModel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.util.ArrayList;
-import java.util.List;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+
 
 public class AgentsFrame {
     private JPanel mainPanel;
@@ -28,7 +29,8 @@ public class AgentsFrame {
     private JComboBox filterBox;
     private JPanel filterPanel;
 
-    long counter;
+
+
     public JPanel getMainPanel() {
         return mainPanel;
     }
@@ -39,14 +41,13 @@ public class AgentsFrame {
 
     public AgentsFrame() {
         AgentsTableModel model = (AgentsTableModel) agentTable.getModel();
-        counter = 0L;
 
         addAgentButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 AgentsTableModel model = (AgentsTableModel) agentTable.getModel();
                 Agent agent = new Agent(
-                        ++counter,
+                        0L,
                         createFullName.getText(),
                         createSecretName.getText(),
                         (Equipment)createEquipment.getSelectedItem());
@@ -85,6 +86,7 @@ public class AgentsFrame {
         agentTable.setModel(new AgentsTableModel());
         JComboBox<Equipment> equipmentJComboBox = new JComboBox<>(Equipment.values());
         agentTable.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(equipmentJComboBox));
+
         //sorter
         TableRowSorter sorter = new TableRowSorter<TableModel>(agentTable.getModel());
         agentTable.setRowSorter(sorter);

@@ -1,7 +1,14 @@
 package cz.muni.fi.pv168.swing;
 
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+
+import javax.sql.DataSource;
 import javax.swing.*;
 import java.awt.*;
+
+import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.DERBY;
+
+
 public class Main {
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -18,5 +25,6 @@ public class Main {
                 frame.pack();
             }
         });
+
     }
 }

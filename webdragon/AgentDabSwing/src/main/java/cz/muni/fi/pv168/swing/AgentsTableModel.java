@@ -2,13 +2,15 @@ package cz.muni.fi.pv168.swing;
 
 
 import cz.muni.fi.agents.*;
+
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+
 
 public class AgentsTableModel extends AbstractTableModel {
 
+    private AgentManagerImpl agentManager = new AgentManagerImpl(new Data().dataSource());
     private List<Agent> agents = new ArrayList<Agent>();
 
     @Override
@@ -74,29 +76,18 @@ public class AgentsTableModel extends AbstractTableModel {
     }
 
     public void addAgent(Agent agent) {
+        agentManager.createAgent(agent);
         agents.add(agent);
         fireTableRowsInserted(agents.size() - 1, agents.size() - 1);
     }
 
     public void removeAgent(int[] rows) {
         for(int i = 0; i < rows.length; i++) {
+            agentManager.deleteAgent(agents.get(i).getId());
             agents.remove(rows[i] - i);
             fireTableRowsDeleted(i,i);
         }
 
-    }
-
-    private Random random = new Random();
-    private static final String[] AGENT_FULL = {"James Bond", "Will Smith", "Joe Bart", "El Homo", "Wut McWutface"};
-    private static final String[] AGENT_SECRET = {"001", "002", "003", "004","005","006"};
-    private static final Equipment[] AGENT_EQUIPMENT = Equipment.values();
-
-    public Agent randomAgent() {
-        return new Agent(
-                random.nextLong() % 10,
-                AGENT_FULL[random.nextInt(AGENT_FULL.length)],
-                AGENT_SECRET[random.nextInt(AGENT_SECRET.length)],
-                AGENT_EQUIPMENT[random.nextInt(AGENT_EQUIPMENT.length)]);
     }
 
     @Override
@@ -118,6 +109,7 @@ public class AgentsTableModel extends AbstractTableModel {
             default:
                 throw new IllegalArgumentException("columnIndex");
         }
+        agentManager.updateAgent(agent);
         fireTableCellUpdated(rowIndex, columnIndex);
     }
 
