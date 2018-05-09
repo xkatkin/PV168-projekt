@@ -2,18 +2,20 @@ package cz.muni.fi.pv168.swing;
 
 
 import cz.muni.fi.agents.*;
+
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+
 
 public class AgentsTableModel extends AbstractTableModel {
 
-    private List<Agent> agents = new ArrayList<Agent>();
+    private AgentManagerImpl agentManager = new AgentManagerImpl(new Data().dataSource());
+
 
     @Override
     public int getRowCount() {
-        return agents.size();
+        return agentManager.findAllAgents().size();
     }
 
     @Override
@@ -23,7 +25,7 @@ public class AgentsTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Agent agent = agents.get(rowIndex);
+        Agent agent = getAgent(rowIndex);
         switch (columnIndex) {
             case 0:
                 return agent.getId();
@@ -70,38 +72,30 @@ public class AgentsTableModel extends AbstractTableModel {
     }
 
     public Agent getAgent(int row) {
-        return agents.get(row);
+        return agentManager.findAllAgents().get(row);
     }
 
     public void addAgent(Agent agent) {
-        agents.add(agent);
-        fireTableRowsInserted(agents.size() - 1, agents.size() - 1);
+        agentManager.createAgent(agent);
+        fireTableRowsInserted(getRowCount() - 1, getRowCount() - 1);
     }
 
     public void removeAgent(int[] rows) {
-        for(int i = 0; i < rows.length; i++) {
-            agents.remove(rows[i] - i);
-            fireTableRowsDeleted(i,i);
+        List<Long> toDelete = new ArrayList<>();
+        for(int i : rows) {
+            toDelete.add(getAgent(i).getId());
+        }
+        for(long j : toDelete) {
+            agentManager.deleteAgent(j);
         }
 
-    }
+        fireTableDataChanged();
 
-    private Random random = new Random();
-    private static final String[] AGENT_FULL = {"James Bond", "Will Smith", "Joe Bart", "El Homo", "Wut McWutface"};
-    private static final String[] AGENT_SECRET = {"001", "002", "003", "004","005","006"};
-    private static final Equipment[] AGENT_EQUIPMENT = Equipment.values();
-
-    public Agent randomAgent() {
-        return new Agent(
-                random.nextLong() % 10,
-                AGENT_FULL[random.nextInt(AGENT_FULL.length)],
-                AGENT_SECRET[random.nextInt(AGENT_SECRET.length)],
-                AGENT_EQUIPMENT[random.nextInt(AGENT_EQUIPMENT.length)]);
     }
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        Agent agent = agents.get(rowIndex);
+        Agent agent = getAgent(rowIndex);
         switch (columnIndex) {
             case 0:
                 agent.setId((Long) aValue);
@@ -118,6 +112,7 @@ public class AgentsTableModel extends AbstractTableModel {
             default:
                 throw new IllegalArgumentException("columnIndex");
         }
+        agentManager.updateAgent(agent);
         fireTableCellUpdated(rowIndex, columnIndex);
     }
 
