@@ -80,7 +80,7 @@ public class AgentsTableModel extends AbstractTableModel {
 
     public void removeAgent(int[] rows) {
         for(int i = 0; i < rows.length; i++) {
-            agents.remove(rows[i]);
+            agents.remove(rows[i] - i);
             fireTableRowsDeleted(i,i);
         }
 
