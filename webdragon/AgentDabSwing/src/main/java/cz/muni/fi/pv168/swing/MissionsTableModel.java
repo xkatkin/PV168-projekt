@@ -1,21 +1,24 @@
 package cz.muni.fi.pv168.swing;
 
 
-import cz.muni.fi.agents.*;
+import cz.muni.fi.missions.Mission;
+import cz.muni.fi.missions.MissionManagerImpl;
+import cz.muni.fi.agents.Equipment;
 
 import javax.swing.table.AbstractTableModel;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class AgentsTableModel extends AbstractTableModel {
+public class MissionsTableModel extends AbstractTableModel {
 
-    private AgentManagerImpl agentManager = new AgentManagerImpl(new Data().getDataSource());
+    private MissionManagerImpl missionManager = new MissionManagerImpl(new Data().getDataSource());
 
 
     @Override
     public int getRowCount() {
-        return agentManager.findAllAgents().size();
+        return missionManager.findAllMissions().size();
     }
 
     @Override
@@ -25,16 +28,16 @@ public class AgentsTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Agent agent = getAgent(rowIndex);
+        Mission mission = getMission(rowIndex);
         switch (columnIndex) {
             case 0:
-                return agent.getId();
+                return mission.getId();
             case 1:
-                return agent.getFullName();
+                return mission.getTarget();
             case 2:
-                return agent.getSecretName();
+                return mission.getNecessaryEquipment();
             case 3:
-                return agent.getEquipment();
+                return mission.getDeadline();
             default:
                 throw new IllegalArgumentException("columnIndex");
         }
@@ -46,11 +49,11 @@ public class AgentsTableModel extends AbstractTableModel {
             case 0:
                 return "Id";
             case 1:
-                return "Full Name";
+                return "Target";
             case 2:
-                return "Secret Name";
+                return "Necessary equipment";
             case 3:
-                return "Equipment";
+                return "Deadline";
             default:
                 throw new IllegalArgumentException("columnIndex");
         }
@@ -62,31 +65,32 @@ public class AgentsTableModel extends AbstractTableModel {
             case 0:
                 return Long.class;
             case 1:
-            case 2:
                 return String.class;
-            case 3:
+            case 2:
                 return Equipment.class;
+            case 3:
+                return LocalDate.class;
             default:
                 throw new IllegalArgumentException("columnIndex");
         }
     }
 
-    public Agent getAgent(int row) {
-        return agentManager.findAllAgents().get(row);
+    public Mission getMission(int row) {
+        return missionManager.findAllMissions().get(row);
     }
 
-    public void addAgent(Agent agent) {
-        agentManager.createAgent(agent);
+    public void addMission(Mission mission) {
+        missionManager.createMission(mission);
         fireTableRowsInserted(getRowCount() - 1, getRowCount() - 1);
     }
 
-    public void removeAgent(int[] rows) {
+    public void removeMission(int[] rows) {
         List<Long> toDelete = new ArrayList<>();
         for(int i : rows) {
-            toDelete.add(getAgent(i).getId());
+            toDelete.add(getMission(i).getId());
         }
         for(long j : toDelete) {
-            agentManager.deleteAgent(j);
+            missionManager.deleteMission(j);
         }
 
         fireTableDataChanged();
@@ -95,24 +99,24 @@ public class AgentsTableModel extends AbstractTableModel {
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        Agent agent = getAgent(rowIndex);
+        Mission mission = getMission(rowIndex);
         switch (columnIndex) {
             case 0:
-                agent.setId((Long) aValue);
+                mission.setId((Long) aValue);
                 break;
             case 1:
-                agent.setFullName((String) aValue);
+                mission.setTarget((String) aValue);
                 break;
             case 2:
-                agent.setSecretName((String) aValue);
+                mission.setNecesarryEquipment(Equipment.valueOf((String) aValue));
                 break;
             case 3:
-                agent.setEquipment((Equipment) aValue);
+                mission.setDeadline(LocalDate.parse((String)aValue));
                 break;
             default:
                 throw new IllegalArgumentException("columnIndex");
         }
-        agentManager.updateAgent(agent);
+        missionManager.updateMission(mission);
         fireTableCellUpdated(rowIndex, columnIndex);
     }
 

@@ -21,7 +21,8 @@ public class Main {
                 frame.setTitle("Agent Database");
                 frame.setLocation(x - x / 4, y - y / 2);
                 frame.setVisible(true);
-                frame.setContentPane(new WelcomePage(frame).getMainPanel());
+                //frame.setContentPane(new WelcomePage(frame).getMainPanel());
+                frame.setContentPane(new MissionsFrame().getMainPanel());
                 frame.pack();
             }
         });

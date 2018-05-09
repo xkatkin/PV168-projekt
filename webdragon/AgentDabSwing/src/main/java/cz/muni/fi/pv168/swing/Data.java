@@ -10,15 +10,12 @@ import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.
  * @author Slavomir Katkin
  */
 public class Data {
-    DataSource dataSource;
-
-    Data() {
-        dataSource = new EmbeddedDatabaseBuilder()
+    private static DataSource dataSource = new EmbeddedDatabaseBuilder()
                 .setType(DERBY)
                 .addScript("classpath:data.sql")
                 .build();
-    }
-    public DataSource dataSource() {
+
+    DataSource getDataSource() {
         return dataSource;
     }
 }
