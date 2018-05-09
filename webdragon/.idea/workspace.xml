@@ -24,7 +24,7 @@
       <file leaf-file-name="AgentsTableModel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AgentDabSwing/src/main/java/cz/muni/fi/pv168/swing/AgentsTableModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1722">
+            <state relative-caret-position="1515">
               <caret line="88" column="40" lean-forward="false" selection-start-line="88" selection-start-column="40" selection-end-line="88" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -33,10 +33,27 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DatabaseLayout.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MissionsFrame.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AgentDabSwing/src/main/java/cz/muni/fi/pv168/swing/MissionsFrame.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MissionsFrame.form" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/AgentDabSwing/src/main/java/cz/muni/fi/pv168/swing/MissionsFrame.form">
+          <provider selected="true" editor-type-id="ui-designer">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DatabaseLayout.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AgentDabSwing/src/main/java/cz/muni/fi/pv168/swing/DatabaseLayout.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="283">
+            <state relative-caret-position="213">
               <caret line="27" column="50" lean-forward="false" selection-start-line="27" selection-start-column="50" selection-end-line="27" selection-end-column="50" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -217,6 +234,16 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="swing" type="462c0819:PsiDirectoryNode" />
               <item name="DatabaseLayout" type="e9f4de52:FormNode" />
+            </path>
+            <path>
+              <item name="Webdragon" type="b2602c69:ProjectViewProjectNode" />
+              <item name="webdragon" type="462c0819:PsiDirectoryNode" />
+              <item name="AgentDabSwing" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="swing" type="462c0819:PsiDirectoryNode" />
+              <item name="MissionsFrame" type="e9f4de52:FormNode" />
             </path>
             <path>
               <item name="Webdragon" type="b2602c69:ProjectViewProjectNode" />
@@ -916,32 +943,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AgentDabSwing/src/main/java/cz/muni/fi/pv168/swing/MissionsFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AgentDabSwing/src/main/java/cz/muni/fi/pv168/swing/MissionsFrame.form">
-      <provider selected="true" editor-type-id="ui-designer">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/AgentDabSwing/src/main/java/cz/muni/fi/pv168/swing/AgentsFrame.form">
       <provider selected="true" editor-type-id="ui-designer">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AgentDabSwing/src/main/java/cz/muni/fi/pv168/swing/AgentsTableModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1722">
-          <caret line="88" column="40" lean-forward="false" selection-start-line="88" selection-start-column="40" selection-end-line="88" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AgentDabSwing/src/main/java/cz/muni/fi/pv168/swing/AgentsFrame.java">
@@ -956,7 +960,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/AgentDabSwing/src/main/java/cz/muni/fi/pv168/swing/DatabaseLayout.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
+        <state relative-caret-position="213">
           <caret line="27" column="50" lean-forward="false" selection-start-line="27" selection-start-column="50" selection-end-line="27" selection-end-column="50" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -964,6 +968,29 @@
             <element signature="e#862#863#0" expanded="true" />
           </folding>
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AgentDabSwing/src/main/java/cz/muni/fi/pv168/swing/AgentsTableModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1515">
+          <caret line="88" column="40" lean-forward="false" selection-start-line="88" selection-start-column="40" selection-end-line="88" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AgentDabSwing/src/main/java/cz/muni/fi/pv168/swing/MissionsFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AgentDabSwing/src/main/java/cz/muni/fi/pv168/swing/MissionsFrame.form">
+      <provider selected="true" editor-type-id="ui-designer">
+        <state />
       </provider>
     </entry>
   </component>
