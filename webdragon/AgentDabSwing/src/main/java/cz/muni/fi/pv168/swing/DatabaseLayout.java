@@ -25,8 +25,8 @@ public class DatabaseLayout {
 
 
     private void createUIComponents() {
-        Agents = new AgentsFrame().getMainPanel();
         Missions = new MissionsFrame().getMainPanel();
+        Agents = new AgentsFrame().getMainPanel();
     }
 
     public JPanel getPanel1() {

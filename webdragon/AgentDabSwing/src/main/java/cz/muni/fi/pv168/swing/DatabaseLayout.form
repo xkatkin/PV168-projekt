@@ -24,7 +24,7 @@
             <border type="none"/>
             <children/>
           </grid>
-          <grid id="4a6e3" binding="Missions" layout-manager="CardLayout" hgap="0" vgap="0">
+          <grid id="4a6e3" binding="Missions" custom-create="true" layout-manager="CardLayout" hgap="0" vgap="0">
             <constraints>
               <tabbedpane title="Missions"/>
             </constraints>
@@ -32,7 +32,7 @@
             <border type="none"/>
             <children/>
           </grid>
-          <grid id="fdd5b" binding="Contracts" layout-manager="CardLayout" hgap="0" vgap="0">
+          <grid id="fdd5b" binding="Contracts" custom-create="true" layout-manager="CardLayout" hgap="0" vgap="0">
             <constraints>
               <tabbedpane title="Contracts"/>
             </constraints>
