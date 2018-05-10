@@ -18,7 +18,7 @@
         <children>
           <grid id="6c06c" binding="Agents" custom-create="true" layout-manager="CardLayout" hgap="0" vgap="0">
             <constraints>
-              <tabbedpane title="Agents"/>
+              <tabbedpane title-resource-bundle="labels" title-key="Agents"/>
             </constraints>
             <properties/>
             <border type="none"/>
