@@ -8,6 +8,7 @@ import cz.muni.fi.agents.Equipment;
 import javax.swing.table.AbstractTableModel;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -24,6 +25,10 @@ public class MissionsTableModel extends AbstractTableModel {
     @Override
     public int getColumnCount() {
         return 4;
+    }
+
+    public Collection<Mission> getAllMissions() {
+        return missionManager.findAllMissions();
     }
 
     @Override

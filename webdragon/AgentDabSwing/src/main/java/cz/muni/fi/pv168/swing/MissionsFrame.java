@@ -2,12 +2,16 @@ package cz.muni.fi.pv168.swing;
 
 import cz.muni.fi.missions.Mission;
 import cz.muni.fi.agents.Equipment;
+import org.jdesktop.swingx.JXDatePicker;
+
 import javax.swing.*;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Calendar;
 
 
 public class MissionsFrame {
@@ -22,6 +26,7 @@ public class MissionsFrame {
     private JPanel createMissionPanel;
     private JPanel filterPanel;
     private JPanel buttonPanel;
+    private JPanel createDate;
 
     public JPanel getMainPanel() {
         return mainPanel;
@@ -38,12 +43,12 @@ public class MissionsFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 MissionsTableModel model = (MissionsTableModel) missionTable.getModel();
+                LocalDate endDate = ((JXDatePicker) createDate.getComponent(0)).getDate().toInstant().atZone((ZoneId.systemDefault())).toLocalDate();
                 Mission mission = new Mission(
                         0L,
                         createTarget.getText(),
                         (Equipment)createNecEquipment.getSelectedItem(),
-                        LocalDate.of(2020,12,10)); //TODO: date
-
+                        endDate);
                 model.addMission(mission);
             }
         });
@@ -78,7 +83,7 @@ public class MissionsFrame {
         missionTable = new JTable();
         missionTable.setModel(new MissionsTableModel());
         JComboBox<Equipment> equipmentJComboBox = new JComboBox<>(Equipment.values());
-        missionTable.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(equipmentJComboBox));
+        missionTable.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(equipmentJComboBox));
 
         //sorter
         TableRowSorter sorter = new TableRowSorter<TableModel>(missionTable.getModel());
@@ -91,6 +96,9 @@ public class MissionsFrame {
         filterBox.addItem("Target");
         filterBox.addItem("Necessary equipment");
         filterBox.addItem("Deadline");
+        //createDate
+        createDate = new JPanel();
+        createDate.add(new JXDatePicker(Calendar.getInstance().getTime()));
     }
 
     public JButton getAddMissionButton() {

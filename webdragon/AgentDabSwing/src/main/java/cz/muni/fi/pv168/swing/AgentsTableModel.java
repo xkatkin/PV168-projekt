@@ -5,6 +5,7 @@ import cz.muni.fi.agents.*;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -21,6 +22,10 @@ public class AgentsTableModel extends AbstractTableModel {
     @Override
     public int getColumnCount() {
         return 4;
+    }
+
+    public Collection<Agent> getAllAgents() {
+        return agentManager.findAllAgents();
     }
 
     @Override
