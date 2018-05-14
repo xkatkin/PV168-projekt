@@ -65,7 +65,12 @@ public class ContractsFrame {
                         endDate,
                         model.getAgent(agentsComboBox.getSelectedIndex()),
                         model.getMission(missionsComboBox.getSelectedIndex()));
-                model.addContract(contract);
+                try{
+                    model.addContract(contract);
+                } catch (IllegalArgumentException iAE){
+                    JOptionPane.showMessageDialog(null,iAE.getMessage());
+                }
+
             }
         });
         removeContract.addActionListener(new ActionListener() {

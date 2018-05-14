@@ -101,24 +101,30 @@ public class ContractManagerImpl implements ContractManager{
     private void checkContract(Contract contract) {
         System.out.println(contract.toString());
         if(hasNulls(contract)) {
-            throw new IllegalArgumentException("Cannot create contract with nulls");
+            log.debug("contract contains nulls", contract);
+            throw new IllegalArgumentException("Cannot create contract with empty arguments");
         }
         if(contract.getId() != 0) {
+            log.debug("contract contains id = 0", contract);
             throw new IllegalArgumentException("Contract already exists");
         }
         if(hasInvalidAgent(contract)) {
-            throw new IllegalArgumentException("Invalid agent data");
+            log.debug("contract contains invalid agent", contract);
+            throw new IllegalArgumentException("Invalid agent");
         }
         if(hasInvalidDates(contract)) {
-            throw new IllegalArgumentException("Invalid date data");
+            log.debug("contract contains invalid dates", contract);
+            throw new IllegalArgumentException("Invalid date");
         }
         if(hasInvalidMission(contract)) {
-            throw new IllegalArgumentException("Invalid mission data");
+            log.debug("contract contains invalid mission", contract);
+            throw new IllegalArgumentException("Invalid mission");
         }
     }
 
     @Override
     public void createContract(Contract contract) {
+        log.debug("Creating contract {}", contract);
         checkContract(contract);
 
         SimpleJdbcInsert insertContract = new SimpleJdbcInsert(jdbc)
@@ -132,7 +138,7 @@ public class ContractManagerImpl implements ContractManager{
 
         Number id = insertContract.executeAndReturnKey(parameters);
         contract.setId(id.longValue());
-        log.debug("Creating contract {}", contract);
+        log.debug("Created contract {}", contract);
     }
 
     @Override
