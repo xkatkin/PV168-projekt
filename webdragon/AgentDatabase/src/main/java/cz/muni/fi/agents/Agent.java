@@ -1,9 +1,13 @@
 package cz.muni.fi.agents;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 /**
  * @author Slavomir Katkin
  */
 public class Agent {
+    private ResourceBundle bundle = ResourceBundle.getBundle("lan", Locale.getDefault());
     private Long id;
     private String fullName;
     private String secretName;
@@ -54,13 +58,7 @@ public class Agent {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Agent{");
-        sb.append("id=").append(id);
-        sb.append(", fullName='").append(fullName).append('\'');
-        sb.append(", secretName='").append(secretName).append('\'');
-        sb.append(", equipment=").append(equipment);
-        sb.append('}');
-        return sb.toString();
+        return String.format(bundle.getString("AgentInfo"), id, fullName, secretName, equipment);
     }
 
     @Override

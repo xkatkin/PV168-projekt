@@ -4,13 +4,12 @@ package cz.muni.fi.pv168.swing;
 import cz.muni.fi.agents.*;
 
 import javax.swing.table.AbstractTableModel;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 
 public class AgentsTableModel extends AbstractTableModel {
 
+    private ResourceBundle bundle = ResourceBundle.getBundle("lan", Locale.getDefault());
     private AgentManagerImpl agentManager = new AgentManagerImpl(new Data().getDataSource());
 
 
@@ -49,13 +48,13 @@ public class AgentsTableModel extends AbstractTableModel {
     public String getColumnName(int columnIndex) {
         switch (columnIndex) {
             case 0:
-                return "Id";
+                return bundle.getString("Id");
             case 1:
-                return "Full Name";
+                return bundle.getString("Full Name");
             case 2:
-                return "Secret Name";
+                return bundle.getString("Secret Name");
             case 3:
-                return "Equipment";
+                return bundle.getString("Equipment");
             default:
                 throw new IllegalArgumentException("columnIndex");
         }

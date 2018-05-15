@@ -7,13 +7,11 @@ import cz.muni.fi.agents.Equipment;
 
 import javax.swing.table.AbstractTableModel;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 
 public class MissionsTableModel extends AbstractTableModel {
-
+    private ResourceBundle bundle = ResourceBundle.getBundle("lan", Locale.getDefault());
     private MissionManagerImpl missionManager = new MissionManagerImpl(new Data().getDataSource());
 
 
@@ -52,13 +50,13 @@ public class MissionsTableModel extends AbstractTableModel {
     public String getColumnName(int columnIndex) {
         switch (columnIndex) {
             case 0:
-                return "Id";
+                return bundle.getString("Id");
             case 1:
-                return "Target";
+                return  bundle.getString("Target");
             case 2:
-                return "Necessary equipment";
+                return  bundle.getString("Necessary Equipment");
             case 3:
-                return "Deadline";
+                return  bundle.getString("Deadline");
             default:
                 throw new IllegalArgumentException("columnIndex");
         }

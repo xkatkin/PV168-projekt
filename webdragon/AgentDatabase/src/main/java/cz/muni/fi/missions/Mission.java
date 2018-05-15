@@ -3,11 +3,14 @@ package cz.muni.fi.missions;
 import cz.muni.fi.agents.Equipment;
 
 import java.time.LocalDate;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  * @author Samuel Gorta
  */
 public class Mission {
+    private ResourceBundle bundle = ResourceBundle.getBundle("lan", Locale.getDefault());
     private Long id;
     private String target;
     private Equipment necessaryEquipment;
@@ -72,11 +75,6 @@ public class Mission {
 
     @Override
     public String toString() {
-        return "Mission{" +
-                "id=" + id +
-                ", target='" + target + '\'' +
-                ", necesarryEquipment=" + necessaryEquipment +
-                ", deadline=" + deadline +
-                '}';
+        return String.format(bundle.getString("MissionInfo"),id,  target, necessaryEquipment, deadline);
     }
 }

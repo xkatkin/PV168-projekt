@@ -10,14 +10,13 @@ import cz.muni.fi.missions.MissionManagerImpl;
 
 import javax.sql.DataSource;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Slavomir Katkin
  */
 public class ContractsTableModel extends AgentsTableModel {
+    private ResourceBundle bundle = ResourceBundle.getBundle("lan", Locale.getDefault());
     DataSource data = new Data().getDataSource();
     private ContractManagerImpl contractManager = new ContractManagerImpl(data, java.time.LocalDate.now());
 
@@ -58,15 +57,15 @@ public class ContractsTableModel extends AgentsTableModel {
     public String getColumnName(int columnIndex) {
         switch (columnIndex) {
             case 0:
-                return "Id";
+                return bundle.getString("Id");
             case 1:
-                return "Start Date";
+                return bundle.getString("Start Date");
             case 2:
-                return "End Date";
+                return bundle.getString("End Date");
             case 3:
-                return "Agent Id";
+                return bundle.getString("Agent Id");
             case 4:
-                return "Mission Id";
+                return bundle.getString("Mission Id");
             default:
                 throw new IllegalArgumentException("columnIndex");
         }

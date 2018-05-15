@@ -18,7 +18,7 @@
         <children>
           <grid id="6c06c" binding="Agents" custom-create="true" layout-manager="CardLayout" hgap="0" vgap="0">
             <constraints>
-              <tabbedpane title="Agents"/>
+              <tabbedpane title-resource-bundle="lan" title-key="Agents"/>
             </constraints>
             <properties/>
             <border type="none"/>
@@ -26,7 +26,7 @@
           </grid>
           <grid id="4a6e3" binding="Missions" custom-create="true" layout-manager="CardLayout" hgap="0" vgap="0">
             <constraints>
-              <tabbedpane title="Missions"/>
+              <tabbedpane title-resource-bundle="lan" title-key="Missions"/>
             </constraints>
             <properties/>
             <border type="none"/>
@@ -34,7 +34,7 @@
           </grid>
           <grid id="fdd5b" binding="Contracts" custom-create="true" layout-manager="CardLayout" hgap="0" vgap="0">
             <constraints>
-              <tabbedpane title="Contracts"/>
+              <tabbedpane title-resource-bundle="lan" title-key="Contracts"/>
             </constraints>
             <properties/>
             <border type="none"/>

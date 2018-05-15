@@ -56,7 +56,7 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Full Name:"/>
+              <text resource-bundle="lan" key="Full Name"/>
             </properties>
           </component>
           <component id="f1312" class="javax.swing.JLabel">
@@ -64,7 +64,7 @@
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Secret Name"/>
+              <text resource-bundle="lan" key="Secret Name"/>
             </properties>
           </component>
           <component id="5dcba" class="javax.swing.JLabel">
@@ -72,7 +72,7 @@
               <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Equipment"/>
+              <text resource-bundle="lan" key="Equipment"/>
             </properties>
           </component>
         </children>
@@ -90,7 +90,7 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Add Agent"/>
+              <text resource-bundle="lan" key="Add Agent"/>
             </properties>
           </component>
           <component id="3d90" class="javax.swing.JButton" binding="removeAgentButton">
@@ -99,7 +99,7 @@
             </constraints>
             <properties>
               <enabled value="true"/>
-              <text value="Remove Agent"/>
+              <text resource-bundle="lan" key="Remove Agent"/>
             </properties>
           </component>
         </children>

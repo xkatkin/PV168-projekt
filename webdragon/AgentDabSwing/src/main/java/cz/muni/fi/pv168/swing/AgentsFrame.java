@@ -45,13 +45,21 @@ public class AgentsFrame {
         addAgentButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AgentsTableModel model = (AgentsTableModel) agentTable.getModel();
-                Agent agent = new Agent(
-                        0L,
-                        createFullName.getText(),
-                        createSecretName.getText(),
-                        (Equipment)createEquipment.getSelectedItem());
-                model.addAgent(agent);
+                Runnable addAgent = new Runnable() {
+                    @Override
+                    public void run() {
+                        AgentsTableModel model = (AgentsTableModel) agentTable.getModel();
+                        Agent agent = new Agent(
+                                0L,
+                                createFullName.getText(),
+                                createSecretName.getText(),
+                                (Equipment)createEquipment.getSelectedItem());
+                        model.addAgent(agent);
+
+                    }
+                };
+                new Thread(addAgent).start();
+
             }
         });
         removeAgentButton.addActionListener(new ActionListener() {
