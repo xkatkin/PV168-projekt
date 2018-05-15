@@ -39,42 +39,59 @@ public class MissionsFrame {
     public MissionsFrame() {
         MissionsTableModel model = (MissionsTableModel) missionTable.getModel();
 
-        addMissionButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                MissionsTableModel model = (MissionsTableModel) missionTable.getModel();
-                LocalDate endDate = ((JXDatePicker) createDate.getComponent(0)).getDate().toInstant().atZone((ZoneId.systemDefault())).toLocalDate();
-                Mission mission = new Mission(
-                        0L,
-                        createTarget.getText(),
-                        (Equipment)createNecEquipment.getSelectedItem(),
-                        endDate);
-                model.addMission(mission);
-            }
-        });
-        removeMissionButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                MissionsTableModel model = (MissionsTableModel) missionTable.getModel();
-                model.removeMission(missionTable.getSelectedRows());
-                missionTable.clearSelection();
+        addMissionButton.addActionListener(e -> {
+            class AddMissionSwingWorker extends SwingWorker<Void,Void> {
 
-            }
-        });
-        filterField.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                RowFilter<MissionsTableModel, Object> rf;
-                //If current expression doesn't parse, don't update.
-                try {
-                    rf = RowFilter.regexFilter(filterField.getText(), filterBox.getSelectedIndex());
-                } catch (java.util.regex.PatternSyntaxException x) {
-                    return;
+                @Override
+                protected Void doInBackground() throws Exception {
+                    MissionsTableModel model1 = (MissionsTableModel) missionTable.getModel();
+                    LocalDate endDate = ((JXDatePicker) createDate.getComponent(0)).getDate().toInstant().atZone((ZoneId.systemDefault())).toLocalDate();
+                    Mission mission = new Mission(
+                            0L,
+                            createTarget.getText(),
+                            (Equipment)createNecEquipment.getSelectedItem(),
+                            endDate);
+                    model1.addMission(mission);
+                    return null;
                 }
-                TableRowSorter sorter = (TableRowSorter)missionTable.getRowSorter();
-                sorter.setRowFilter(rf);
-                missionTable.setRowSorter(sorter);
             }
+            AddMissionSwingWorker addMissionSwingWorker = new AddMissionSwingWorker();
+            addMissionSwingWorker.execute();
+        });
+        removeMissionButton.addActionListener(e -> {
+            class RemoveMissionSwingWorker extends SwingWorker<Void,Void> {
+
+                @Override
+                protected Void doInBackground() throws Exception {
+                    MissionsTableModel model12 = (MissionsTableModel) missionTable.getModel();
+                    model12.removeMission(missionTable.getSelectedRows());
+                    missionTable.clearSelection();
+                    return null;
+                }
+            }
+            RemoveMissionSwingWorker removeMissionSwingWorker = new RemoveMissionSwingWorker();
+            removeMissionSwingWorker.execute();
+        });
+        filterField.addActionListener(e -> {
+            class FilterFieldSwingWorker extends SwingWorker<Void,Void> {
+
+                @Override
+                protected Void doInBackground() throws Exception {
+                    RowFilter<MissionsTableModel, Object> rf;
+                    //If current expression doesn't parse, don't update.
+                    try {
+                        rf = RowFilter.regexFilter(filterField.getText(), filterBox.getSelectedIndex());
+                    } catch (java.util.regex.PatternSyntaxException x) {
+                        return null;
+                    }
+                    TableRowSorter sorter = (TableRowSorter)missionTable.getRowSorter();
+                    sorter.setRowFilter(rf);
+                    missionTable.setRowSorter(sorter);
+                    return null;
+                }
+            }
+            FilterFieldSwingWorker filterFieldSwingWorker = new FilterFieldSwingWorker();
+            filterFieldSwingWorker.execute();
         });
     }
 

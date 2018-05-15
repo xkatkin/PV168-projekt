@@ -42,49 +42,59 @@ public class AgentsFrame {
     public AgentsFrame() {
         AgentsTableModel model = (AgentsTableModel) agentTable.getModel();
 
-        addAgentButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Runnable addAgent = new Runnable() {
-                    @Override
-                    public void run() {
-                        AgentsTableModel model = (AgentsTableModel) agentTable.getModel();
-                        Agent agent = new Agent(
-                                0L,
-                                createFullName.getText(),
-                                createSecretName.getText(),
-                                (Equipment)createEquipment.getSelectedItem());
-                        model.addAgent(agent);
+        addAgentButton.addActionListener(e -> {
+            class AddAgentSwingWorker extends SwingWorker<Void,Void> {
 
-                    }
-                };
-                new Thread(addAgent).start();
-
-            }
-        });
-        removeAgentButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                AgentsTableModel model = (AgentsTableModel) agentTable.getModel();
-                model.removeAgent(agentTable.getSelectedRows());
-                agentTable.clearSelection();
-
-            }
-        });
-        filterField.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                RowFilter<AgentsTableModel, Object> rf;
-                //If current expression doesn't parse, don't update.
-                try {
-                    rf = RowFilter.regexFilter(filterField.getText(), filterBox.getSelectedIndex());
-                } catch (java.util.regex.PatternSyntaxException x) {
-                    return;
+                @Override
+                protected Void doInBackground() throws Exception {
+                    AgentsTableModel model1 = (AgentsTableModel) agentTable.getModel();
+                    Agent agent = new Agent(
+                            0L,
+                            createFullName.getText(),
+                            createSecretName.getText(),
+                            (Equipment)createEquipment.getSelectedItem());
+                    model1.addAgent(agent);
+                    return null;
                 }
-                TableRowSorter sorter = (TableRowSorter)agentTable.getRowSorter();
-                sorter.setRowFilter(rf);
-                agentTable.setRowSorter(sorter);
             }
+            AddAgentSwingWorker addAgentSwingWorker = new AddAgentSwingWorker();
+            addAgentSwingWorker.execute();
+        });
+
+        removeAgentButton.addActionListener(e -> {
+            class RemoveAgentSwingWorker extends SwingWorker<Void,Void> {
+
+                @Override
+                protected Void doInBackground() throws Exception {
+                    AgentsTableModel model12 = (AgentsTableModel) agentTable.getModel();
+                    model12.removeAgent(agentTable.getSelectedRows());
+                    agentTable.clearSelection();
+                    return null;
+                }
+            }
+            RemoveAgentSwingWorker removeAgentSwingWorker = new RemoveAgentSwingWorker();
+            removeAgentSwingWorker.execute();
+        });
+        filterField.addActionListener(e -> {
+            class FilterFieldSwingWorker extends SwingWorker<Void,Void> {
+
+                @Override
+                protected Void doInBackground() throws Exception {
+                    RowFilter<AgentsTableModel, Object> rf;
+                    //If current expression doesn't parse, don't update.
+                    try {
+                        rf = RowFilter.regexFilter(filterField.getText(), filterBox.getSelectedIndex());
+                    } catch (java.util.regex.PatternSyntaxException x) {
+                        return null;
+                    }
+                    TableRowSorter sorter = (TableRowSorter)agentTable.getRowSorter();
+                    sorter.setRowFilter(rf);
+                    agentTable.setRowSorter(sorter);
+                    return null;
+                }
+            }
+            FilterFieldSwingWorker filterFieldSwingWorker = new FilterFieldSwingWorker();
+            filterFieldSwingWorker.execute();
         });
     }
 
