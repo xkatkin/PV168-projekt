@@ -45,10 +45,12 @@ public class ContractsFrame {
             @Override
             public void componentShown(ComponentEvent e) {
                 AgentManagerImpl aManager = new AgentManagerImpl(new Data().getDataSource());
+                agentsComboBox.removeAllItems();
                 for(Agent agent : aManager.findAllAgents()) {
                     agentsComboBox.addItem(agent.toString());
                 }
                 MissionManagerImpl mManager = new MissionManagerImpl(new Data().getDataSource());
+                missionsComboBox.removeAllItems();
                 for(Mission mission : mManager.findAllMissions()) {
                     missionsComboBox.addItem(mission.toString());
                 }

@@ -99,7 +99,6 @@ public class ContractManagerImpl implements ContractManager{
     }
 
     private void checkContract(Contract contract) {
-        System.out.println(contract.toString());
         if(hasNulls(contract)) {
             log.debug("contract contains nulls", contract);
             throw new IllegalArgumentException("Cannot create contract with empty arguments");
@@ -119,6 +118,10 @@ public class ContractManagerImpl implements ContractManager{
         if(hasInvalidMission(contract)) {
             log.debug("contract contains invalid mission", contract);
             throw new IllegalArgumentException("Invalid mission");
+        }
+        if(contract.getMission().getNecessaryEquipment() != contract.getAgent().getEquipment()){
+            log.debug("contract contains invalid equipment", contract);
+            throw new IllegalArgumentException("Invalid equipment");
         }
     }
 
