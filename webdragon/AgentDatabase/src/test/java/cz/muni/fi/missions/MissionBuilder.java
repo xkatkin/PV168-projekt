@@ -18,7 +18,7 @@ public class MissionBuilder {
         Mission mission = new Mission();
         mission.setId(id);
         mission.setTarget(target);
-        mission.setNecesarryEquipment(necesarryEquipment);
+        mission.setNecessaryEquipment(necesarryEquipment);
         mission.setDeadline(deadline);
         return mission;
     }

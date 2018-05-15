@@ -46,7 +46,7 @@ public class Mission {
         this.target = target;
     }
 
-    public void setNecesarryEquipment(Equipment necesarryEquipment) {
+    public void setNecessaryEquipment(Equipment necesarryEquipment) {
         this.necessaryEquipment = necesarryEquipment;
     }
 

@@ -111,7 +111,7 @@ public class MissionsTableModel extends AbstractTableModel {
                 mission.setTarget((String) aValue);
                 break;
             case 2:
-                mission.setNecesarryEquipment(Equipment.valueOf((String) aValue));
+                mission.setNecessaryEquipment(Equipment.valueOf((String) aValue));
                 break;
             case 3:
                 mission.setDeadline(LocalDate.parse((String)aValue));
